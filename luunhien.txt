@@ -85,6 +85,103 @@
                 $('.btn-play-guest')[0].click();
         },1000)
     }
+    (function() {
+    'use strict';
+
+    const fullGameUI = () => {
+        // Toàn bộ body và html phủ toàn màn hình
+        document.documentElement.style.margin = "0";
+        document.documentElement.style.padding = "0";
+        document.documentElement.style.width = "100vw";
+        document.documentElement.style.height = "100vh";
+        document.documentElement.style.overflow = "hidden";
+
+        document.body.style.margin = "0";
+        document.body.style.padding = "0";
+        document.body.style.width = "100vw";
+        document.body.style.height = "100vh";
+        document.body.style.overflow = "hidden";
+
+        // Tìm phần chính của giao diện
+        const gameContainer = document.querySelector("canvas") || document.querySelector(".game") || document.querySelector("main") || document.body;
+
+        if (gameContainer) {
+            gameContainer.style.position = "fixed";
+            gameContainer.style.top = "0";
+            gameContainer.style.left = "0";
+            gameContainer.style.width = "100vw";
+            gameContainer.style.height = "100vh";
+            gameContainer.style.zIndex = "9999";
+            gameContainer.style.backgroundSize = "cover";
+        }
+
+        // Tắt âm thanh nếu có
+        document.querySelectorAll('audio, video').forEach(el => {
+            el.pause();
+            el.muted = true;
+        });
+
+        // Xoá phần thừa
+        const extras = ['header', 'footer', '#left-bar', '#right-bar', '.top-bar', '.adsbygoogle'];
+        extras.forEach(sel => {
+            document.querySelectorAll(sel).forEach(el => el.style.display = 'none');
+        });
+    };
+
+    // Chạy ngay lập tức và theo dõi DOM
+    fullGameUI();
+    const observer = new MutationObserver(fullGameUI);
+    observer.observe(document.body, { childList: true, subtree: true });
+})();
+// ==UserScript==
+// @name         Ẩn JACKPOT + GIF CODE + Nút Play To Gấp Đôi
+// @namespace    http://tampermonkey.net/
+// @version      1.2
+// @description  Ẩn JACKPOT, ô GIF CODE và làm nút Play cực to
+// @match        *://*.tranhdau.net/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    function adjustUI() {
+        // Ẩn ô nhập GIF CODE
+        const gifInput = document.querySelector('input[placeholder="Nhập GIF CODE"]');
+        if (gifInput && gifInput.parentElement) {
+            gifInput.parentElement.style.display = 'none';
+        }
+
+        // Ẩn JACKPOT
+        const jackpotDivs = Array.from(document.querySelectorAll('div')).filter(div =>
+            div.innerText?.includes('JACKPOT') || div.innerText?.includes('QUAY')
+        );
+        jackpotDivs.forEach(div => {
+            div.style.display = 'none';
+        });
+
+        // Làm nút Play TO ra
+        const playButton = Array.from(document.querySelectorAll('button, div')).find(el =>
+            el.innerText?.trim() === 'Play'
+        );
+        if (playButton) {
+            playButton.style.fontSize = '32px';
+            playButton.style.padding = '20px 40px';
+            playButton.style.width = '500px';
+            playButton.style.height = '80px';
+            playButton.style.borderRadius = '12px';
+            playButton.style.backgroundColor = '#00ccff';
+            playButton.style.color = 'green';
+            playButton.style.fontWeight = 'bold';
+            playButton.style.boxShadow = '0 0 15px #00ffff';
+            playButton.style.transition = 'transform 0.0s ease-in-out';
+        }
+    }
+
+    const interval = setInterval(adjustUI, 200);
+    setTimeout(() => clearInterval(interval), 5000);
+
+})();
 
     function newIns(){
               var skinInput = document.getElementById("skin");
@@ -183,14 +280,14 @@ var script = document.createElement('script');
         $("#adbg").hide();
         $("#footer").hide();
         $("#instructions").hide();
-        $("#settings-btn").remove();
+        $("#settings-btn").hide();
         $("#canvasx").hide();
         $('.dialog-right').hide();
         $('.btn-danger').hide();
         $('.progress-bar-text').hide();
         $('.agario-exp-bar').hide();
         $('.progress-bar-star').hide();
-        $("#gamemode").remove();
+        $("#gamemode").hide();
 
 
 
