@@ -11,7 +11,7 @@
 (function() {
     var local = {
         SCRIPT_CONFIG: {
-            NAME_COLOR: "cyan", // the color, which the target name should be changed to
+            NAME_COLOR: "red", // the color, which the target name should be changed to
         },
         MENU_CONFIG: {
 
