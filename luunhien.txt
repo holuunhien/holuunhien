@@ -182,6 +182,40 @@
     setTimeout(() => clearInterval(interval), 5000);
 
 })();
+// ==UserScript==
+// @name         Xóa nút "Tắt Nhạc" hoàn toàn
+// @namespace    http://tampermonkey.net/
+// @version      1.1
+// @description  Xoá nút "Tắt Nhạc" bên trái giao diện tranhdau.net hoàn toàn khỏi DOM
+// @author       Bạn
+// @match        *://tranhdau.net/*
+// @grant        none
+// ==/UserScript==
+
+(function () {
+    'use strict';
+
+    const removeMusicButton = () => {
+        // Quét toàn bộ phần tử và tìm phần tử có text là "Tắt Nhạc"
+        const allElements = document.querySelectorAll('*');
+        for (const el of allElements) {
+            if (el.innerText && el.innerText.trim() === 'Tắt Nhạc') {
+                el.remove(); // XÓA hoàn toàn khỏi DOM
+                console.log('🎵 Đã xoá nút "Tắt Nhạc" khỏi trang');
+                break;
+            }
+        }
+    };
+
+    // Thực hiện khi trang tải xong và lặp lại vài lần để đảm bảo
+    window.addEventListener('load', () => {
+        removeMusicButton();
+        setTimeout(removeMusicButton, 1000);
+        setTimeout(removeMusicButton, 3000);
+    });
+})();
+
+
 
     function newIns(){
               var skinInput = document.getElementById("skin");
@@ -430,7 +464,21 @@ CanvasRenderingContext2D.prototype.fillText = function() {
 var z = "";
 var x = "";;
 var i = document.getElementById("helloDialog");
-var t ="";;;
+var t ="";;
+i.innerHTML += "<center><span class='text-muted'><span data-itr='instructions_e'> <b>" + z.fontcolor("skyblue") + "</b></span></span></center>";
+
+var youtubeIframe = document.createElement("iframe");
+youtubeIframe.src = "https://www.youtube.com/embed/kL8CyVqzmkc";
+youtubeIframe.width = "100%";
+youtubeIframe.height = "100%";
+youtubeIframe.frameBorder = "0";
+youtubeIframe.allowfullscreen = true;
+youtubeIframe.style.borderRadius = "5px";
+youtubeIframe.style.float = "left";
+youtubeIframe.style.marginTop = "-228px";
+
+i.appendChild(youtubeIframe);
+
 
 
 
