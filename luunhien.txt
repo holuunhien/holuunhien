@@ -1,3 +1,4 @@
+
 // ==UserScript==
 // @name         SASUKE
 // @namespace    http://tampermonkey.net/
@@ -183,10 +184,10 @@
 
 })();
 // ==UserScript==
-// @name         Xóa nút "Tắt Nhạc" hoàn toàn
+// @name         Hiển thị FPS góc phải - tranhdau.net
 // @namespace    http://tampermonkey.net/
 // @version      1.1
-// @description  Xoá nút "Tắt Nhạc" bên trái giao diện tranhdau.net hoàn toàn khỏi DOM
+// @description  Thêm bộ đếm FPS hiển thị cố định ở góc phải trên cùng trang web
 // @author       Bạn
 // @match        *://tranhdau.net/*
 // @grant        none
@@ -195,25 +196,43 @@
 (function () {
     'use strict';
 
-    const removeMusicButton = () => {
-        // Quét toàn bộ phần tử và tìm phần tử có text là "Tắt Nhạc"
-        const allElements = document.querySelectorAll('*');
-        for (const el of allElements) {
-            if (el.innerText && el.innerText.trim() === 'Tắt Nhạc') {
-                el.remove(); // XÓA hoàn toàn khỏi DOM
-                console.log('🎵 Đã xoá nút "Tắt Nhạc" khỏi trang');
-                break;
-            }
-        }
-    };
+    const fpsDiv = document.createElement('div');
+    fpsDiv.style.position = 'fixed';
+    fpsDiv.style.top = '10px';
+    fpsDiv.style.right = '10px'; // 👈 Chỉnh sang phải
+    fpsDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+    fpsDiv.style.color = '#00ff00';
+    fpsDiv.style.fontFamily = 'monospace';
+    fpsDiv.style.padding = '5px 10px';
+    fpsDiv.style.zIndex = '9999';
+    fpsDiv.style.borderRadius = '6px';
+    fpsDiv.style.fontSize = '14px';
+    fpsDiv.textContent = 'FPS: ...';
 
-    // Thực hiện khi trang tải xong và lặp lại vài lần để đảm bảo
-    window.addEventListener('load', () => {
-        removeMusicButton();
-        setTimeout(removeMusicButton, 1000);
-        setTimeout(removeMusicButton, 3000);
-    });
+    document.body.appendChild(fpsDiv);
+
+    let lastFrameTime = performance.now();
+    let frameCount = 0;
+
+    function updateFPS() {
+        const now = performance.now();
+        frameCount++;
+
+        if (now - lastFrameTime >= 1000) {
+            fpsDiv.textContent = `FPS: ${frameCount}`;
+            frameCount = 0;
+            lastFrameTime = now;
+        }
+
+        requestAnimationFrame(updateFPS);
+    }
+
+    requestAnimationFrame(updateFPS);
 })();
+
+
+
+
 
 
 
@@ -465,29 +484,6 @@ var z = "";
 var x = "";;
 var i = document.getElementById("helloDialog");
 var t ="";;
-i.innerHTML += "<center><span class='text-muted'><span data-itr='instructions_e'> <b>" + z.fontcolor("skyblue") + "</b></span></span></center>";
-
-var youtubeIframe = document.createElement("iframe");
-youtubeIframe.src = "https://www.youtube.com/embed/kL8CyVqzmkc";
-youtubeIframe.width = "100%";
-youtubeIframe.height = "100%";
-youtubeIframe.frameBorder = "0";
-youtubeIframe.allowfullscreen = true;
-youtubeIframe.style.borderRadius = "5px";
-youtubeIframe.style.float = "left";
-youtubeIframe.style.marginTop = "-228px";
-
-i.appendChild(youtubeIframe);
-
-
-
-
-
-
-
-
-
-
 
 class mouseWheelZoom {
   constructor() {
