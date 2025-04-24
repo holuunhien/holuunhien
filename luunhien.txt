@@ -381,6 +381,20 @@ function keydown(event) {
         Feed = true;
         setTimeout(mass,Speed);
     }// Center
+   case 49: // Phím số 1 - f5 nhanh
+    let chatBox = $("#chat_textbox");
+    if (!chatBox.is(":focus")) {
+        const message = "// ==User== // Macro Fast Mass Ejector & Split (Best)✓ // @namespace    http://tampermonkey.net/ // @version      0.5 // @descripFastest Mass Ejector & Split Macro // @auth";
+        chatBox.focus().val(message).trigger("input");
+
+        // Gửi tin nhắn ngay lập tức
+        chatBox.trigger($.Event("keydown", { keyCode: 13 }));
+        chatBox.trigger($.Event("keyup", { keyCode: 13 }));
+    }
+    break;
+
+
+        break;
     case 83:                                       // S
         X = window.innerWidth/2;
         Y = window.innerHeight/2;
