@@ -1,0 +1,408 @@
+// ==UserScript==
+// @name         New Userscript
+// @namespace    http://tampermonkey.net/
+// @version      2025-04-24
+// @description  try to take over the world!
+// @author       You
+// @match        https://dangcap.one/
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=dangcap.one
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // Bỏ chặn sự kiện copy, cut, paste trên toàn bộ trang
+    document.addEventListener('DOMContentLoaded', function() {
+        document.body.oncopy = null;
+        document.body.oncut = null;
+        document.body.onpaste = null;
+
+        // Tắt các sự kiện chặn paste trên các input và textarea
+        var inputs = document.querySelectorAll('input, textarea');
+        inputs.forEach(function(input) {
+            input.addEventListener('paste', function(e) {
+                // Cho phép dán bình thường
+                e.stopPropagation(); // Ngừng sự kiện mặc định, nhưng không chặn
+            });
+        });
+    });
+
+    // Vô hiệu hóa sự kiện right-click (chặn context menu)
+    document.oncontextmenu = null;
+
+    // Lắng nghe sự kiện phím, nhưng tránh trường hợp copy (Ctrl + C)
+    document.addEventListener('keydown', function(event) {
+        // Kiểm tra nếu người dùng đang nhập vào input
+        const activeElement = document.activeElement;
+        if (activeElement && activeElement.tagName === 'INPUT' && activeElement.type === 'text') {
+            return;
+        }
+
+        // Kiểm tra nếu nhấn Ctrl + C thì bỏ qua
+        if (event.ctrlKey && (event.key === 'c' || event.key === 'C')) {
+            return;
+        }
+
+        // Nếu chỉ nhấn 'C' hoặc 'c' mà không có Ctrl thì thực hiện connect()
+        if (event.key === 'c' || event.key === 'C') {
+            console.log('connect()');
+            eval('connect()'); // Thực thi connect() trong console
+        }
+    });
+})();
+// ==UserScript==
+// @name         SASUKE
+// @namespace    http://tampermonkey.net/
+// @version      0.5
+// @description  Fastest Mass Ejector & Split Macro
+// @author       Tom Burris
+// @match        https://tranhdau.net/
+// @grant        none
+// @run-at       document-end
+// ==/UserScript==
+(function() {
+    var local = {
+        SCRIPT_CONFIG: {
+            NAME_COLOR: "red", // the color, which the target name should be changed to
+        },
+        MENU_CONFIG: {
+
+            /* https://htmlcolorcodes.com/color-picker/ */
+
+            COLOR_1: "#20687C", // you can use color codes, rgba, hsl, rgb or just color names.
+            COLOR_2:"#484430", // you can use color codes, rgba, hsl, rgb or just color names.
+            RAINBOW: false, // replace false with true if you want the menu to be rainbow.
+        },
+
+        // DO NOT CHANGE ANYTHING BELOW HERE UNLESS YOU KNOW WHAT YOU'RE DOING \\
+
+        COLOR_HUE: 0,
+        COLOR_HUE2: 300,
+        GAME_WS: null,
+        GAME_INIT: false,
+        PLAYER_PACKET_SPAWN: [],
+        PLAYER_SOCKET: null,
+        PLAYER_IS_DEAD: false,
+        PLAYER_MOUSE: {
+            x: null,
+            y: null,
+        },
+        GAME_BYPASS: {
+            mouseFrozen: Symbol(),
+            utf8: new TextEncoder()
+        }
+    }
+
+    function changeHue() {
+        355 == local.COLOR_HUE && (local.COLOR_HUE = 0), local.COLOR_HUE++;
+        355 == local.COLOR_HUE2 && (local.COLOR_HUE2 = 0), local.COLOR_HUE2++;
+        $('.dialog-left').css({
+            background: 'linear-gradient(to right bottom,hsl('+local.COLOR_HUE+', 50%, 50%),hsl('+local.COLOR_HUE2+', 50%, 50%)'
+        })
+    }
+    function ready() {
+        setInterval(() => {
+            if(local.MENU_CONFIG.RAINBOW) {
+                changeHue()
+            } else {
+                $('dialog-left').css({
+                    background: `linear-gradient(to right bottom,${local.MENU_CONFIG.COLOR_1},${local.MENU_CONFIG.COLOR_2})`
+                })
+            }
+        }, 10)
+    }
+    const { fillText } = CanvasRenderingContext2D.prototype;
+    CanvasRenderingContext2D.prototype.fillText = function(text, x, y) {
+        let config = local.SCRIPT_CONFIG
+        if(text == document.getElementById("nick").value) {
+            this.fillStyle = config.NAME_COLOR;
+        }
+        fillText.call(this, ...arguments);
+    }
+    document.addEventListener("DOMContentLoaded", ready)
+})();
+// ==UserScript==
+// @name         Hiển thị FPS góc phải - tranhdau.net
+// @namespace    http://tampermonkey.net/
+// @version      1.1
+// @description  Thêm bộ đếm FPS hiển thị cố định ở góc phải trên cùng trang web
+// @author       Bạn
+// @match        *://tranhdau.net/*
+// @grant        none
+// ==/UserScript==
+
+(function () {
+    'use strict';
+
+    const fpsDiv = document.createElement('div');
+    fpsDiv.style.position = 'fixed';
+    fpsDiv.style.top = '10px';
+    fpsDiv.style.right = '10px'; // 👈 Chỉnh sang phải
+    fpsDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+    fpsDiv.style.color = '#00ff00';
+    fpsDiv.style.fontFamily = 'monospace';
+    fpsDiv.style.padding = '5px 10px';
+    fpsDiv.style.zIndex = '9999';
+    fpsDiv.style.borderRadius = '6px';
+    fpsDiv.style.fontSize = '14px';
+    fpsDiv.textContent = 'FPS: ...';
+
+    document.body.appendChild(fpsDiv);
+
+    let lastFrameTime = performance.now();
+    let frameCount = 0;
+
+    function updateFPS() {
+        const now = performance.now();
+        frameCount++;
+
+        if (now - lastFrameTime >= 1000) {
+            fpsDiv.textContent = `FPS: ${frameCount}`;
+            frameCount = 0;
+            lastFrameTime = now;
+        }
+
+        requestAnimationFrame(updateFPS);
+    }
+
+    requestAnimationFrame(updateFPS);
+})();
+(function(){
+    $("body").dblclick(function(){
+        if($("#doubleclick_d").is(":checked"))
+            keyPress(88);
+    });
+    $("head").append("<style>.emberstyle a, #nick, #ip_newserver{border-radius:5px;} #fb_id:hover{text-decoration:none;}</style>");
+    newIns();
+    var interval_gold, interval_bomb, key = false, key2 = false, att=20, X=0, Y=0, k=0, fg=false;
+
+    function autoSpawn()
+    {
+        setInterval(function(){
+            if($("#overlays").is(':visible') && $("#autorespawnok").is(":checked"))
+                $('.btn-play')[0].click();
+        },1000)
+    }
+
+    function newIns()
+    {
+
+    }
+    $(document).on('keydown',function(e){
+        if (e.keyCode == 50)
+        {
+        }
+        else if(e.keyCode == 80 && !$("#nick, #ip_newserver, #chat_textbox").is(":focus"))
+        {
+            $('.btn-play-guest')[0].click();
+            $("#overlays").css("display","none");
+        }
+        else if(e.keyCode == 82)
+        {
+        }
+    })
+})();
+var script = document.createElement('script');
+(document.body || document.head || document.documentElement).appendChild(script);
+        $("#instructions").hide();
+        $("#adbg").hide();
+        $("#footer").hide();
+        $("#instructions").hide();
+        $("#settings-btn").hide();
+        $("#canvasx").hide();
+        $('.dialog-right').hide();
+        $('.btn-danger').hide();
+        $('.progress-bar-text').hide();
+        $('.agario-exp-bar').hide();
+        $('.progress-bar-star').hide();
+        $("#gamemode").hide();
+
+
+
+        $('.agario-profile-picture').replaceWith ('<img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcmJvaXhzNXdtdXpwNzdhNnQ5YmpmbXFsZW5uaTV1bzJocG8xYXdvbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/FB5EOw0CaaQM0/giphy.gif" style=\" right: 70%; width: 100%; height: 210px;;\ ">')
+        $("#overlays").append('<img src="https://i.imgur.com/Kio4vMr.gif" style="width:100%; height:1080px; display:inline-block;">');
+        $(".dialog-left").append ('<marquee   width="100%" height="100%" style=""><font color=Blue>WELCOM TO PRESENTATION Luu Nhien</marquee>')
+        $('.dialog-left').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
+        $('.agario-panel').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
+        $('.btn-primary').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
+        $('.btn-needs-server').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
+        $('.btn-primary').text('Skin');
+        $(".btn-play").text('Play');
+
+window.addEventListener('keydown', keydown);
+window.addEventListener('keyup', keyup);
+var Feed = false;
+var Speed = 50;
+
+// Functions
+function split() {
+    $("body").trigger($.Event("keydown", { keyCode: 32}));
+    $("body").trigger($.Event("keyup", { keyCode: 32}));
+}
+function mass() {
+    if (Feed) {
+        window.onkeydown({keyCode: 87});
+        window.onkeyup({keyCode: 87});
+        setTimeout(mass, Speed);
+    }
+}
+
+function keydown(event) {
+    switch(event.keyCode){
+    case 81: // Q
+        Feed = true;
+        setTimeout(mass, Speed);
+        break;
+
+    break;
+    case 83: // S - Center
+        X = window.innerWidth / 2;
+        Y = window.innerHeight / 2;
+        $("canvas").trigger($.Event("mousemove", {clientX: X, clientY: Y}));
+        break;
+
+    case 68: // D - Triplesplit
+        split();
+        setTimeout(split, Speed);
+        setTimeout(split, Speed * 2);
+        setTimeout(split, Speed * 3);
+        break;
+
+    case 65: // A - Doublesplit
+        split();
+        setTimeout(() => {
+            split();
+        }, Speed);
+        break;
+
+   case 49: // Phím số 1 - f5 nhanh
+    let chatBox = $("#chat_textbox");
+    if (!chatBox.is(":focus")) {
+        const message = "// ==User== // Macro Fast Mass Ejector & Split (Best)✓ // @namespace    http://tampermonkey.net/ // @version      0.5 // @descripFastest Mass Ejector & Split Macro // @auth";
+        chatBox.focus().val(message).trigger("input");
+
+        // Gửi tin nhắn ngay lập tức
+        chatBox.trigger($.Event("keydown", { keyCode: 13 }));
+        chatBox.trigger($.Event("keyup", { keyCode: 13 }));
+    }
+    break;
+
+    case 88: // X - Bấm nút play
+        let playButton = document.getElementById("play-btn");
+        if (playButton) {
+            playButton.click();
+        }
+        break;
+
+    case 67: // Ctrl + C - Ẩn tên
+        if (event.ctrlKey) {
+            $(".save[data-box-id='2']").prop("checked", false).trigger("change");
+            event.preventDefault();
+        }
+        break;
+
+    case 86: // Ctrl + V - Hiện tên
+        if (event.ctrlKey) {
+            $(".save[data-box-id='2']").prop("checked", true).trigger("change");
+            event.preventDefault();
+        }
+        break;
+
+    default:
+        break;
+    }
+}
+
+// Khi người chơi nhả phím Q, nó dừng Feed
+function keyup(event) {
+    if (event.keyCode == 81) {
+        Feed = false;
+    }
+}
+
+// Mouse Clicks
+$(function() {
+    $("#canvas").mousedown(function(event) {
+        switch(event.which){
+        case 3:
+            Feed = true;
+            setTimeout(mass, Speed);
+            break;
+        }
+    });
+
+    $("#canvas").mouseup(function(event) {
+        if (event.which == 3) {
+            Feed = false;
+        }
+    });
+    $('#canvas').contextmenu(function(e) {
+        e.preventDefault();
+    });
+});
+
+(function() {
+    'use strict';
+    var New_WhiteBackgroundColor = '#000';
+    var old_fillRect = CanvasRenderingContext2D.prototype.fillRect;
+    CanvasRenderingContext2D.prototype.fillRect = function() {
+        var x = arguments[0];
+        var y = arguments[1];
+        var w = arguments[2];
+        var h = arguments[3];
+
+        if (x == 0 && y == 0 && w == this.canvas.width && h == this.canvas.height) {
+            if (this.fillStyle == '#f2fbff') {
+                this.fillStyle = New_WhiteBackgroundColor;
+            }
+        }
+        return old_fillRect.apply(this, arguments);
+    };
+})();
+// Xóa các phần tử với class 'santaright', 'snakerightbottom' và 'santa'
+document.querySelectorAll('.santaright, .snakerightbottom, .santa').forEach(function(element) {
+    element.remove();
+});
+// Tạo một phần tử <span>
+var textElement = document.createElement('span');
+
+// Thêm nội dung chữ vào <span>
+textElement.textContent = 'Nh1enTools';
+
+// Thêm các style cho <span> để căn giữa và định dạng chữ
+textElement.style.position = 'absolute';
+textElement.style.top = '100%';
+textElement.style.left = '50%';
+textElement.style.transform = 'translate(-50%, -50%)'; // Căn giữa cả theo chiều ngang và dọc
+textElement.style.color = 'Green';
+textElement.style.fontFamily = 'Times New Roman, serif';
+textElement.style.fontSize = '12px';
+textElement.style.zIndex = '1100'; // Đảm bảo chữ nằm trên canvas
+
+// Lấy phần tử div có id 'mini-map-wrapper'
+var miniMapWrapper = document.getElementById('mini-map-wrapper');
+
+// Thêm phần tử <span> vào trong div
+miniMapWrapper.appendChild(textElement);
+
+// Make the map transparent by adjusting its background or opacity
+miniMapWrapper.style.background = 'transparent'; // This makes the background transparent
+// OR
+miniMapWrapper.style.opacity = '0.5'; // Adjust the opacity as needed
+
+var snowElement = document.querySelector(".snowflakes");
+snowElement.style.display = 'none';
+document.onkeydown = function (e) {
+    // Các phím không bị vô hiệu hóa nữa
+};
+
+let canvas = document.querySelector(".js-render-canvas");
+if (canvas) {
+    canvas.remove();
+}
+
+
+setskin('./skins/Owyc0UuD0uyJ.png')
+
+
