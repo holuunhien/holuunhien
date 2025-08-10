@@ -1,0 +1,24 @@
+// ==UserScript==
+// @name         Chặn URL AliExpress dạng quảng cáo
+// @namespace    http://tampermonkey.net/
+// @version      1.0
+// @description  Ngăn không cho tab mới vào URL quảng cáo AliExpress
+// @match        *://*/*
+// @run-at       document-start
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    const blockedPatterns = [
+        "aliexpress.com/p/popular-landing",
+        "aff_platform",
+        "aff_short_key"
+    ];
+
+    const currentURL = window.location.href;
+    if (blockedPatterns.some(pattern => currentURL.includes(pattern))) {
+        window.stop(); // Dừng tải trang
+        window.location.href = "about:blank"; // Hoặc đổi thành trang bạn muốn
+    }
+})();
