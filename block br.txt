@@ -19,6 +19,6 @@
     const currentURL = window.location.href;
     if (blockedPatterns.some(pattern => currentURL.includes(pattern))) {
         window.stop(); // Dừng tải trang
-        window.location.href = "about:blank"; // Hoặc đổi thành trang bạn muốn
+        window.location.href = "https://www.google.com/"; // Hoặc đổi thành trang bạn muốn
     }
 })();
