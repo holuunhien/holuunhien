@@ -1,0 +1,11 @@
+/* Chọn minimap (A1, A2…D4) và thay nền */
+#mini-map, .mini-map, .minimap {
+    background: url("https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYXdyN3NucTU4NjVzdXFrOHZ6YjEydXhpeXMzZDBtdTl4eDl6bWc1YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/mlCb3AjEE6N4Q/giphy.gif") 
+        no-repeat center center !important;
+    background-size: cover !important;
+}
+
+/* Ẩn màu đen mặc định */
+#mini-map canvas, .mini-map canvas, .minimap canvas {
+    background: transparent !important;
+}
