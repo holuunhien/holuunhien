@@ -14,7 +14,7 @@
     const css = `
         /* Chọn minimap (A1, A2…D4) và thay nền */
         #mini-map, .mini-map, .minimap {
-            background: url("https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExc2c0NzJwdThxY2dwbGFwcjNzbnAya3dob3d3ZXEwNmJ3Y3IwZmczbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/yCDoXaZyBVilq/giphy.gif")
+            background: url("https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExYm9qb29zaHNmdzI4aWF1bzlxd2ltZ291dW15ZXZzMGdxMThtMzA4MCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/nKRXlgrdpOljzcrvpx/giphy.gif")
                 no-repeat center center !important;
             background-size: cover !important;
         }
@@ -212,7 +212,7 @@
 (function() {
 'use strict';
 
-var New_WhiteBackgroundColor = '#000';
+var New_WhiteBackgroundColor = '#001100';
 
 var old_fillRect = CanvasRenderingContext2D.prototype.fillRect;
 CanvasRenderingContext2D.prototype.fillRect = function() {
