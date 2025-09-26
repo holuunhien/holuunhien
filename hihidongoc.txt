@@ -200,6 +200,33 @@
     requestAnimationFrame(updateFPS);
 })();
 // ==UserScript==
+// @name         Chặn Video + Nhạc ngay lập tức
+// @namespace    http://tampermonkey.net/
+// @version      1.1
+// @description  Xóa video intro và tắt nhạc ngay khi load trang
+// @match        *://tranhdau.net/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // Hàm chặn media
+    function removeMedia() {
+        document.querySelectorAll("video, audio").forEach(el => {
+            el.pause?.();
+            el.remove();
+        });
+    }
+
+    // Chặn ngay lập tức
+    removeMedia();
+
+    // Quan sát DOM liên tục (phòng trường hợp game chèn lại video/nhạc)
+    const observer = new MutationObserver(removeMedia);
+    observer.observe(document.body, { childList: true, subtree: true });
+})();
+// ==UserScript==
 // @name         SASUKE
 // @namespace    http://tampermonkey.net/
 // @version      1.0
@@ -255,3 +282,9 @@ CanvasRenderingContext2D.prototype.fillText = function() {
     return old_fillText.apply(this, arguments);
 };
 })();
+
+
+
+
+
+
