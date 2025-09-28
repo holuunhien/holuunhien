@@ -1,35 +1,63 @@
 // ==UserScript==
-// @name         Custom Minimap Background
+// @name         Nh1enTools Map Cleaner (Instant Run)
 // @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  Thay nền minimap và ẩn màu đen mặc định
+// @version      1.1
+// @description  Xóa video, nhạc, rác + thêm chữ Nh1enTools vào minimap (chạy ngay lập tức)
 // @author       Bạn
-// @match        *://*/*
+// @match        https://tranhdau.net/*
 // @grant        none
+// @run-at       document-end
 // ==/UserScript==
 
 (function() {
     'use strict';
 
-    const css = `
-        /* Chọn minimap (A1, A2…D4) và thay nền */
-        #mini-map, .mini-map, .minimap {
-            background: url("https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExYm9qb29zaHNmdzI4aWF1bzlxd2ltZ291dW15ZXZzMGdxMThtMzA4MCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/nKRXlgrdpOljzcrvpx/giphy.gif")
-                no-repeat center center !important;
-            background-size: cover !important;
+    function runScript() {
+        // Xóa các phần tử rác ngay lập tức
+        document.querySelectorAll('.santaright, .snakerightbottom, .santa, .js-render-canvas').forEach(el => el.remove());
+
+        // Ẩn snowflakes nếu có
+        let snowElement = document.querySelector(".snowflakes");
+        if (snowElement) {
+            snowElement.style.display = 'none';
         }
 
-        /* Ẩn màu đen mặc định */
-        #mini-map canvas, .mini-map canvas, .minimap canvas {
-            background: transparent !important;
-        }
-    `;
+        // Thêm chữ "Nh1enTools" vào minimap
+        let miniMapWrapper = document.getElementById('mini-map-wrapper');
+        if (miniMapWrapper && !miniMapWrapper.querySelector('.nh1entools-text')) {
+            let textElement = document.createElement('span');
+            textElement.textContent = 'Nh1enTools';
+            textElement.className = 'nh1entools-text';
 
-    // Tạo thẻ style và gắn vào head
-    const style = document.createElement('style');
-    style.textContent = css;
-    document.head.appendChild(style);
+            // Style chữ
+            textElement.style.position = 'absolute';
+            textElement.style.top = '50%';
+            textElement.style.left = '50%';
+            textElement.style.transform = 'translate(-50%, -50%)';
+            textElement.style.color = 'Red';
+            textElement.style.fontFamily = 'cursive, serif';
+            textElement.style.fontSize = '20px';
+            textElement.style.zIndex = '1100';
+
+            miniMapWrapper.appendChild(textElement);
+
+            // Làm minimap trong suốt
+            miniMapWrapper.style.background = 'transparent';
+            miniMapWrapper.style.opacity = '0.5';
+        }
+
+        // Cho phép phím bấm hoạt động bình thường
+        document.onkeydown = function(e) { };
+    }
+
+    // Chạy ngay khi DOM sẵn sàng
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", runScript);
+    } else {
+        runScript();
+    }
 })();
+
 // ==UserScript==
 // @name         SASUKE
 // @namespace    http://tampermonkey.net/
@@ -282,7 +310,129 @@ CanvasRenderingContext2D.prototype.fillText = function() {
     return old_fillText.apply(this, arguments);
 };
 })();
+// ==UserScript==
+// @name         Agar Macro Nh1enTools
+// @namespace    http://tampermonkey.net/
+// @version      1.0
+// @description  Macro split, mass, auto feed, hide/show name bằng phím tắt
+// @author       Bạn
+// @match        https://tranhdau.net/*
+// @grant        none
+// @run-at       document-end
+// ==/UserScript==
 
+(function() {
+    'use strict';
+
+    let Feed = false;
+    let Speed = 50; // tốc độ feed, càng nhỏ càng nhanh
+
+    function split() {
+        $("body").trigger($.Event("keydown", { keyCode: 32 }));
+        $("body").trigger($.Event("keyup", { keyCode: 32 }));
+    }
+
+    function mass() {
+        if (Feed) {
+            window.onkeydown({ keyCode: 87 });
+            window.onkeyup({ keyCode: 87 });
+            setTimeout(mass, Speed);
+        }
+    }
+
+    function keydown(event) {
+        switch(event.keyCode) {
+            case 81: // Q - Auto feed
+                Feed = true;
+                setTimeout(mass, Speed);
+                break;
+
+            case 83: // S - Center chuột
+                let X = window.innerWidth / 2;
+                let Y = window.innerHeight / 2;
+                $("canvas").trigger($.Event("mousemove", { clientX: X, clientY: Y }));
+                break;
+
+            case 68: // D - Triplesplit
+                split();
+                setTimeout(split, Speed);
+                setTimeout(split, Speed * 2);
+                setTimeout(split, Speed * 3);
+                break;
+
+            case 65: // A - Doublesplit
+                split();
+                setTimeout(split, Speed);
+                break;
+
+            case 49: // Phím số 1 - Chat F5 nhanh
+                let chatBox = $("#chat_textbox");
+                if (!chatBox.is(":focus")) {
+                    const message = "// ==User== // Macro Fast Mass Ejector & Split ✓";
+                    chatBox.focus().val(message).trigger("input");
+
+                    chatBox.trigger($.Event("keydown", { keyCode: 13 }));
+                    chatBox.trigger($.Event("keyup", { keyCode: 13 }));
+                }
+                break;
+
+            case 88: // X - Play
+                let playButton = document.getElementById("play-btn");
+                if (playButton) {
+                    playButton.click();
+                }
+                break;
+
+            case 67: // Ctrl + C - Ẩn tên
+                if (event.ctrlKey) {
+                    $(".save[data-box-id='2']").prop("checked", false).trigger("change");
+                    event.preventDefault();
+                }
+                break;
+
+            case 86: // Ctrl + V - Hiện tên
+                if (event.ctrlKey) {
+                    $(".save[data-box-id='2']").prop("checked", true).trigger("change");
+                    event.preventDefault();
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    function keyup(event) {
+        if (event.keyCode === 81) { // Nhả phím Q thì dừng feed
+            Feed = false;
+        }
+    }
+
+    // Mouse right click để feed
+    $(function() {
+        $("#canvas").mousedown(function(event) {
+            if (event.which === 3) {
+                Feed = true;
+                setTimeout(mass, Speed);
+            }
+        });
+
+        $("#canvas").mouseup(function(event) {
+            if (event.which === 3) {
+                Feed = false;
+            }
+        });
+
+        $("#canvas").contextmenu(function(e) {
+            e.preventDefault();
+        });
+    });
+
+    // Gắn sự kiện toàn cục
+    window.addEventListener("keydown", keydown, false);
+    window.addEventListener("keyup", keyup, false);
+
+})();
 
 
 
