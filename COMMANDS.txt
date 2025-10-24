@@ -1,0 +1,199 @@
+L?nh PING, Tracert, Netstat, Ipconfig, Shutdown
+L?nh PING : dòng l?nh: ping ip/host/[/t][/a][/l][/n] . Trong dó:
+
+ip: d?a ch? IP c?a máy tính c?n ki?m tra, host là tên c?a máy tính c?n ki?m tra k?t n?i m?ng. Ngu?i dùng có th? s? d?ng d?a ch? IP ho?c tên c?a máy tính d?u du?c.
+/t: yêu c?u g?i gói tin liên t?c d?n máy dích cho d?n khi b?n b?m Ctrl + C d? k?t thúc.
+/a: nh?n d?a ch? IP t? tên máy tính.
+/l: xác d?nh d? r?ng c?a gói tin g?i di ki?m tra.
+/n: xác d?nh s? gói tin g?i di.
+L?nh Tracert : Dòng l?nh: tracert ip/host . Trong dó:
+
+ip/host là d?a ch? IP ho?c tên máy tính c?n ki?m tra.
+Cách dùng l?nh Tracert trong cmd: l?nh Tracert dùng d? hi?n th? du?ng di c?a các gói tin t? máy tính ki?m tra d?n máy tính dích, thông qua server ho?c router nào.
+
+L?nh Netstat : Dòng l?nh: Netstat [/a][/e][/n] . Trong dó:
+
+/a: hi?n th? t?t c? k?t n?i và các c?ng dang du?c m?.
+/e: thông tin s? li?u th?ng kê Ethernet.
+/n: hi?n th? các d?a ch? và các s? c?ng k?t n?i.
+L?nh Ipconfig : Dòng l?nh: ipconfig /all . Trong dó: 
+
+Cách dùng l?nh ipconfig /all trong cmd : hi?n th? các thông tin c?a máy tính dang ki?m tra g?m tên host, d?a ch? IP, DNS,…
+
+L?nh Shutdown : Dòng l?nh: Shutdown . Trong dó: 
+
+Shutdown -s -t [a]: t?t máy (trên Windows 7).
+Shutdown -r -t [a]: kh?i d?ng máy.
+Trong dó: a là th?i gian t?t ho?c m? máy du?c tính theo don v? giây. Cách dùng l?nh Shutdown trong cmd : t?t ho?c kh?i d?ng l?i máy tính theo l?ch lên s?n.
+L?nh cmd DIR , DEL, COPY, RD, MD
+L?nh DIR : Dòng l?nh : DIR [drive:] [path][filename]. Trong dó:
+
+Path: du?ng d?n t?i file hay thu m?c.
+Filename: tên file.
+Công d?ng l?nh DIR trong cmd : giúp ngu?i dùng có th? tìm ki?m và ki?m tra file cung nhu thu m?c trong máy tính.
+
+L?nh DEL : Dòng l?nh: DEL [/p][/f][/s][/q][/a[[:]attributes]] “tên file c?n xóa”. Trong dó:
+
+/p: hi?n th? thông tin file tru?c khi xóa.
+/f: xóa các file có thu?c tính ch? d?c (read-only).
+/s: xóa toàn b? file dó xu?t hi?n ? b?t c? thu m?c nào.
+/q: xóa không c?n h?i.
+/a[[:]attributes]: xóa theo thu?c tính c?a file (R: Read-only files, S: System files, H: Hidden files).
+Công d?ng l?nh DEL trong cmd : xóa file trên máy tính.
+
+L?nh COPY : Dòng l?nh: COPY “d?a ch? file c?n copy” “d?a ch? luu file copy” /y .Trong dó:
+
+/y là sao chép file không c?n h?i.
+Cách dùng l?nh COPY trong cmd : dùng trong tru?ng h?p mu?n chuy?n file t? thu m?c này sang thu m?c khác trong máy tính.
+
+L?nh RD : Dòng l?nh: RD /s /q “thu m?c c?n xóa” .Trong dó:
+
+/s: xóa toàn b? thu m?c.
+/q: xóa thu m?c không c?n h?i.
+Cách dùng l?nh RD trong cmd : trong tru?ng h?p chúng ta mu?n xóa nhanh thu m?c nào dó trên máy tính thì có th? áp d?ng l?nh này.
+L?nh MD : Dòng l?nh: MD “du?ng d?n luu file c?n t?o”\”tên thu m?c c?n t?o”
+
+Cách dùng l?nh MD trong cmd : s? d?ng trong tru?ng h?p t?o thu m?c m?i trong ? dia. Ví du nhu: MD “C:\kbpavietnam” d? t?o thu m?c kbpavietnam trong ? C máy tính.
+
+L?nh TASKKILL, REG ADD, REG DELETE, REGEDIT.EXE, ATTRIB
+L?nh TASKKILL : Dòng l?nh: taskkill /f /im “tên ?ng d?ng”.exe
+
+Cách dùng l?nh TASKKILL trong cmd : t?t ph?n m?m dang ch?y trong tru?ng h?p ph?n m?m g?p v?n d?, không th? thoát tr?c ti?p.
+
+L?nh REG ADD : Dòng l?nh: REG ADD KeyName [/v ValueName] [/t Type] [/s Separator] [/d Data] [/f] . Trong dó:
+
+KeyName: du?ng d?n t?i khóa. /v
+ValueName: tên giá tr? c?n t?o trong Registry.
+/t Type: ki?u d? li?u.
+/d Data: d? li?u kh?i t?o cho giá tr? v?a t?o.
+Cách dùng l?nh REG ADD trong cmd : s? d?ng l?nh d? t?o và ch?nh s?a Registry.
+L?nh REG ADD : Dòng l?nh: REG DELETE KeyName [/v ValueName] [/f] . Trong dó:
+
+[/v ValueName] là tên giá tr? c?n xóa.
+Cách dùng l?nh REG DELETE trong cmd : dùng trong tru?ng h?p mu?n xóa m?t giá tr? nào dó trong Registry.
+
+L?nh REGEDIT.EXE  : Dòng l?nh: Regedit.exe /s “noi ch?a file .reg” . Trong dó:
+
+/s không c?n h?i.
+Cách dùng trong cmd : dùng trong tru?ng h?p ch?y file .reg.
+
+L?nh ATTRIB : Dòng l?nh: ATTRIB -a -s -h -r “file, thu m?c” /s /d ho?c ATTRIB +a +s +h +r “file, thu m?c” /s /d . Trong dó:
+
+D?u +: thêm vào thu?c tính.
+D?u -: lo?i b? thu?c tính.
+a: archive là thu?c tính luu tr?.
+s: system là thu?c tính h? th?ng.
+h: hidden là thu?c tính ?n.
+r: read- only là thu?c tính ch? d?c.
+/s: th?c hi?n v?i t?t c? các file n?m trong thu m?c và các thu m?c con.
+/d: d?t thu?c tính cho thu m?c và thu m?c con.
+Cách dùng trong cmd : dùng d? d?t thu?c tính cho file ho?c thu m?c.
+L?nh Assoc, Cipher, Driverquery, File Compare, PathPing
+L?nh Assoc :
+
+H?u h?t các file trong Windows du?c liên k?t v?i m?t chuong trình c? th? du?c gán d? m? file theo m?c d?nh. Ðôi khi, vi?c ghi nh? nh?ng liên k?t này có th? tr? nên khó hi?u.
+
+B?n có th? t? nh?c mình b?ng cách nh?p l?nh assoc d? hi?n th? danh sách d?y d? các ph?n m? r?ng tên file và liên k?t chuong trình.
+
+B?n cung có th? m? r?ng l?nh d? thay d?i liên k?t file trong cmd.
+L?nh Cipher :
+
+Lo?i b? file trên ? c?ng co h?c không th?c s? xóa chúng. Thay vào dó, nó dánh d?u các file là không th? truy c?p du?c n?a và dung lu?ng chúng chi?m tr? thành chua du?c s? d?ng. Các file v?n có th? khôi ph?c du?c cho d?n khi h? th?ng ghi dè chúng b?ng d? li?u m?i, quá trình này có th? m?t m?t chút th?i gian.
+L?nh Driverquery :
+
+
+
+Driver v?n là m?t trong nh?ng ph?n m?m quan tr?ng nh?t du?c cài d?t trên PC. Driver b? thi?u ho?c du?c c?u hình không dúng có th? gây ra t?t c? các lo?i r?c r?i, vì v?y, th?t t?t khi có quy?n truy c?p vào danh sách nh?ng driver có trên PC c?a b?n.
+
+Ðó chính xác là nh?ng gì l?nh driverquery th?c hi?n. B?n có th? m? r?ng nó thành driverquery -v d? có thêm thông tin, bao g?m c? thu m?c mà driver du?c cài d?t.
+L?nh File Compare :
+
+
+
+B?n có th? s? d?ng l?nh này trong cmd d? xác d?nh s? khác bi?t v? van b?n gi?a hai file. Nó d?c bi?t h?u ích cho các nhà van và l?p trình viên dang c? g?ng tìm nh?ng thay d?i nh? gi?a hai phiên b?n c?a file. Ch? c?n gõ fc, sau dó là du?ng d?n thu m?c và tên c?a hai file b?n mu?n so sánh.
+
+B?n cung có th? m? r?ng l?nh theo m?t s? cách. Nh?p /b ch? so sánh d?u ra nh? phân, /c b? qua ch? vi?t hoa, vi?t thu?ng trong so sánh và /l ch? so sánh van b?n ASCII.
+
+Vì v?y, ví d?, b?n có th? s? d?ng l?nh nhu sau:
+L?nh PathPing :
+
+Ðây là phiên b?n ping nâng cao hon r?t h?u ích n?u có nhi?u router gi?a PC c?a b?n và thi?t b? b?n dang th? nghi?m. Gi?ng nhu ping, b?n s? d?ng l?nh này b?ng cách gõ pathping theo sau là d?a ch? IP, nhung không gi?ng nhu ping, pathping cung chuy?n ti?p m?t s? thông tin v? du?ng di c?a các gói th? nghi?m.
+
+L?nh Powercfg, Systeminfo. System File Checker, Tasklist, Chkdsk
+L?nh Powercfg :
+
+Powercfg là m?t l?nh r?t m?nh d? qu?n lý và theo dõi cách máy tính c?a b?n s? d?ng nang lu?ng. B?n có th? s? d?ng l?nh powercfg hibernate on và powercfg hibernate off d? qu?n lý ch? d? ng? dông; ho?c b?n cung có th? s? d?ng l?nh powercfg /a d? xem các tr?ng thái ti?t ki?m nang lu?ng hi?n có trên PC.
+
+M?t l?nh h?u ích khác là powercfg /devicequery s1_supported, hi?n th? danh sách các thi?t b? trên máy tính h? tr? ch? d? ch? du?c k?t n?i. Khi du?c kích ho?t, b?n có th? s? d?ng các thi?t b? này d? dua máy tính c?a mình ra kh?i ch? d? ch?, th?m chí t? xa. B?n có th? b?t tính nang này b?ng cách ch?n thi?t b? trong Device Manager, m? thu?c tính c?a thi?t b?, chuy?n d?n tab Power Management, sau dó ch?n h?p Allow this device to wake the computer.
+Powercfg /lastwake s? cho b?n bi?t thi?t b? nào dã dánh th?c PC c?a b?n t? tr?ng thái ng? l?n cu?i. B?n có th? s? d?ng l?nh này d? kh?c ph?c s? c? PC, n?u nó có v? ng?u nhiên th?c d?y t? ch? d? ng?.
+
+B?n có th? s? d?ng l?nh powercfg /energy d? xây d?ng báo cáo tiêu th? di?n nang chi ti?t cho PC c?a mình. Báo cáo luu vào thu m?c du?c ch? d?nh sau khi l?nh k?t thúc. Báo cáo này s? cho b?n bi?t v? b?t k? l?i h? th?ng nào có th? làm tang m?c tiêu th? di?n nang, ch?ng h?n nhu thi?t b? ch?n m?t s? ch? d? ng? nh?t d?nh ho?c du?c c?u hình kém d? dáp ?ng các cài d?t qu?n lý nang lu?ng c?a b?n.
+
+Windows 8 dã thêm powercfg /batteryreport, cung c?p phân tích chi ti?t v? vi?c s? d?ng pin, n?u có. Thông thu?ng xu?t ra thu m?c ngu?i dùng Windows c?a b?n, báo cáo cung c?p thông tin chi ti?t v? th?i gian và d? dài c?a chu k? s?c và x?, th?i lu?ng pin trung bình và dung lu?ng pin u?c tính.
+L?nh Systeminfo :
+
+
+
+L?nh này s? cung c?p cho b?n m?t cái nhìn t?ng quan v? c?u hình chi ti?t c?a máy tính. Danh sách bao g?m h? di?u hành và ph?n c?ng c?a b?n. Ví d?, b?n có th? tra c?u ngày cài d?t Windows g?c, th?i gian kh?i d?ng cu?i cùng, phiên b?n BIOS, t?ng b? nh? và b? nh? kh? d?ng, các hotfix dã cài d?t, c?u hình card m?ng, v.v…
+
+S? d?ng systeminfo /s theo sau là host name c?a máy tính trong m?ng n?i b?, d? l?y thông tin t? xa cho h? th?ng dó.
+
+Ði?u này có th? yêu c?u các ph?n t? cú pháp b? sung cho domain, tên ngu?i dùng và m?t kh?u, nhu sau:
+
+systeminfo /s [host_name] /u [domain]\[user_name] /p [user_password]
+L?nh System File Checker :
+
+System File Checker là m?t công c? quét và s?a ch?a t? d?ng t?p trung vào các file h? th?ng Windows.
+
+B?n s? c?n ch?y Command Prompt v?i quy?n admin và nh?p l?nh sfc /scannow. N?u SFC tìm th?y b?t k? file nào b? h?ng ho?c b? thi?u, nó s? t? d?ng thay th? chúng b?ng cách s? d?ng các b?n sao du?c luu trong b? nh? cache du?c Windows luu gi? riêng cho m?c dích này. L?nh có th? yêu c?u n?a gi? d? ch?y trên các máy d?i cu.
+L?nh Tasklist :
+
+B?n có th? s? d?ng l?nh tasklist d? cung c?p danh sách hi?n t?i c?a t?t c? các tác v? dang ch?y trên PC c?a mình. M?c dù hoi th?a vì dã có Task Manager, nhung l?nh này dôi khi có th? tìm th?y các tác v? b? ?n kh?i ch? d? xem trong ti?n ích này.
+
+Ngoài ra còn có m?t lo?t các modifier. Tasklist -svc hi?n th? các service liên quan d?n t?ng tác v?, s? d?ng tasklist -v d? bi?t thêm chi ti?t v? t?ng tác v? và tasklist -m s? d?nh v? các file DLL du?c liên k?t v?i nh?ng tác v? dang ho?t d?ng. Các l?nh này h?u ích cho vi?c kh?c ph?c s? c? nâng cao.
+
+
+
+L?nh Chkdsk :
+
+Windows t? d?ng dánh d?u ? d? quét chkdsk ch?n doán khi nh?ng tri?u ch?ng cho th?y ? c?c b? có các bad sector, m?t c?m, các l?i logic ho?c v?t lý khác.
+
+N?u nghi ng? ? c?ng c?a mình b? l?i, b?n có th? b?t d?u quét theo cách th? công. L?nh co b?n nh?t là chkdsk c:, s? quét ngay ? C: mà không c?n kh?i d?ng l?i máy tính. N?u b?n thêm các tham s? nhu /f, /r, /x ho?c /b, ch?ng h?n nhu trong chkdsk /f /r /x /b c:, chkdsk cung s? s?a l?i, khôi ph?c d? li?u, b? mount ? ho?c xóa danh sách các bad sector, tuong ?ng. Các tác v? này yêu c?u kh?i d?ng l?i, vì chúng ch? có th? ch?y khi Windows t?t ngu?n.
+
+
+
+L?nh Schtasks, Net Use
+L?nh Schtasks :
+
+Schtasks là quy?n truy c?p Command Prompt vào Task Scheduler, m?t trong nhi?u công c? qu?n tr? Windows b? dánh giá th?p. M?c dù b?n có th? s? d?ng GUI d? qu?n lý các tác v? dã lên l?ch c?a mình, nhung Command Prompt cho phép b?n sao chép và dán các l?nh ph?c t?p d? thi?t l?p nhi?u tác v? tuong t? mà không c?n ph?i nh?p qua nhi?u tùy ch?n khác nhau.
+
+Ví d?, b?n có th? lên l?ch kh?i d?ng l?i máy tính c?a mình lúc 11 gi? t?i th? Sáu hàng tu?n:
+
+schtasks /create /sc weekly /d FRI /tn "auto reboot computer weekly" /st 23:00 /tr "shutdown -r -f -t 10"
+Ð? b? sung cho vi?c kh?i d?ng l?i hàng tu?n, b?n có th? lên l?ch các tác v? d? kh?i ch?y nh?ng chuong trình c? th? khi kh?i d?ng:
+L?nh Net Use :
+
+N?u mu?n ánh x? m?t ? m?i, b?n luôn có th? m? File Explorer, nh?p chu?t ph?i vào This PC và di qua các bu?c trong trình hu?ng d?n Map Network Drive. Tuy nhiên, b?ng cách s? d?ng l?nh Net Use, b?n có th? làm di?u tuong t? v?i m?t chu?i l?nh.
+
+Ví d?, n?u b?n có m?t thu m?c chia s? trên m?t máy tính trong m?ng c?a mình có tên \\OTHER-COMPUTER\SHARE\, b?n có th? ánh x? nó thành ? Z: c?a riêng mình b?ng cách gõ l?nh:
+
+net use Z: “\\OTHER-COMPUTER\SHARE” /persistent:yes
+Switch persistent cho máy tính bi?t r?ng b?n mu?n ? này du?c ánh x? l?i m?i khi b?n dang nh?p l?i vào máy tính c?a mình.
+
+
+
+Các l?nh Windows CMD khác
+Nhu b?n có th? th?y, có m?t s? di?u h?u ích và m?nh m? mà b?n có th? làm v?i Command Prompt c?a Windows, n?u b?n bi?t các l?nh phù h?p.
+
+Th?m chí còn có nhi?u l?nh cung c?p cho b?n kh? nang th?c hi?n m?t s? di?u mà b?n có th? không bao gi? nghi r?ng có th? làm du?c ch? b?ng cách gõ m?t l?nh don gi?n.
+
+
+
+BITSADMIN: B?t d?u công vi?c upload ho?c download qua m?ng hay Internet và theo dõi tr?ng thái hi?n t?i c?a nh?ng l?n truy?n file dó.
+COLOR: Thay d?i màu n?n c?a c?a s? Command Prompt.
+COMP: So sánh n?i dung c?a hai file b?t k? d? xem s? khác bi?t.
+FIND/FINDSTR: Tìm ki?m các chu?i bên trong b?t k? file ASCII nào.
+PROMPT: Thay d?i d?u nh?c l?nh t? C:\> sang m?t th? khác.
+TITLE: Thay d?i tiêu d? c?a c?a s? Command Prompt.
+REGEDIT: Ch?nh s?a key trong Windows registry (s? d?ng th?n tr?ng).
+ROBOCOPY: M?t ti?n ích sao chép file m?nh m? du?c tích h?p ngay trong Windows.
