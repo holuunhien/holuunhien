@@ -148,7 +148,7 @@ else if(e.keyCode == 86  && e.ctrlKey){
             textElement.style.color = 'Red';
             textElement.style.fontFamily = 'cursive, serif';
             textElement.style.fontSize = '20px';
-            textElement.style.zIndex = '1100';
+            textElement.style.zIndex = '200';
 
             miniMapWrapper.appendChild(textElement);
 
@@ -258,7 +258,7 @@ else if(e.keyCode == 86  && e.ctrlKey){
     fpsDiv.style.top = '10px';
     fpsDiv.style.right = '10px'; // 👈 Chỉnh sang phải
     fpsDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-    fpsDiv.style.color = '#66CCFF';
+    fpsDiv.style.color = '#00FF00';
     fpsDiv.style.fontFamily = 'monospace';
     fpsDiv.style.padding = '5px 10px';
     fpsDiv.style.zIndex = '9999';
@@ -321,7 +321,7 @@ var script = document.createElement('script');
         $("#adbg").hide();
         $("#footer").hide();
         $("#instructions").hide();
-       // $("#settings-btn").hide();
+        $("#settings-btn").remove();
         $("#canvasx").hide();
         $('.dialog-right').hide();
         $('.btn-danger').hide();
@@ -329,11 +329,9 @@ var script = document.createElement('script');
         $('.agario-exp-bar').hide();
         $('.progress-bar-star').hide();
         $("#gamemode").remove();
-        $('.agario-profile-picture').replaceWith ('<img src="https://i.imgur.com/lVcAxJd.jpg" style=\" right: 200px; width: 250px; height: 310px;;\ ">')
         $(".dialog-left").append ('<marquee   width="100%" height="100%" style=""><font color=Green>WELCOME TO TRANHDAU.NET</marquee>')
-        $("#overlays").append('<img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2RvcXZrM2pha2xmOTQ1MmJkazNwanJlMWg2eTd0bnE4dDNzaW1vbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/FB5EOw0CaaQM0/giphy.gif" style="width:100%; height:1080px; display:inline-block;">');
+        $("#overlays").append('<img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExOG80eG04Y3EzMTZnYzduMmhkbm5rc3hqbW01cjhtc2Y5Z3NxeXdvYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/RAl5HlHidv0MjnEFJf/giphy.gif" style="width:100%; height:1080px; display:inline-block;">');
         $('#setka').replaceWith ('<div id="setka" style="width:160px;height:160px;position:fixed;bottom:10px;right:10px;"><table width="100%" height="100%" style="border-spacing: 0px; font: 10px );')
-        $('#setka').append ('<img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2RvcXZrM2pha2xmOTQ1MmJkazNwanJlMWg2eTd0bnE4dDNzaW1vbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/FB5EOw0CaaQM0/giphy.gif" style="width:200px;height:190px;">');
         // PHẦN TRANG TRÍ SETTING NGOÀI GAME
         // THAY ĐỔI NỀN BẰNG CÁCH VÀO GIPHY.COM VÀ SAO CHÉP LINK GÁN VÀO IMG SRC
         // SCRIPT CÓ NHIỀU CHỨ NĂNG NHƯ : CTRL + C BẬT NAME , CTRL + V TẮT NAME
@@ -517,8 +515,8 @@ var z = "";
 var i = document.getElementById("helloDialog");
 i.innerHTML += "<center><span class='text-muted'><span data-itr='instructions_e'> <b>" + z.fontcolor("skyblue") + "</b></span></span></center>";
 var youtubeIframe = document.createElement("iframe");
-youtubeIframe.src = "https://www.youtube.com/embed/U9K2oyyrkas";
-youtubeIframe.width = "500";
+youtubeIframe.src = "https://www.youtube.com/embed/CSFKob_L42o";
+youtubeIframe.width = "600";
 youtubeIframe.height = "210";
 youtubeIframe.frameBorder = "0";
 youtubeIframe.allowfullscreen = true;
@@ -566,63 +564,3 @@ ux.style.color = "darksalmon";
 
 // EDIT RIENG !!
 
-var elements = document.getElementsByClassName("dialog-left");
-for (var i = 0; i < elements.length; i++) {
-  elements[i].style.backgroundColor = "transparent";
-}
-
-var elements = document.getElementsByClassName("agario-panel agario-side-panel agario-profile-panel");
-for (var i = 0; i < elements.length; i++) {
-  elements[i].style.backgroundColor = "transparent";
-}
-
-var profileNameElements = document.getElementsByClassName("agario-profile-name");
-if (profileNameElements.length > 0) {
-  var profileNameElement = profileNameElements[0]; // Lấy phần tử đầu tiên trong danh sách
-  profileNameElement.innerHTML = "luu nhien"; // Thay đổi nội dung
-}
-
-var profileNameElements = document.getElementsByClassName("agario-profile-id");
-if (profileNameElements.length > 0) {
-  var profileNameElement = profileNameElements[0]; // Lấy phần tử đầu tiên trong danh sách
-  profileNameElement.innerHTML = "ID: 99999"; // Thay đổi nội dung
-}
-
-var profilePictureElements = document.getElementsByClassName("agario-profile-picture");
-if (profilePictureElements.length > 0) {
-  var profilePictureElement = profilePictureElements[0]; // Lấy phần tử đầu tiên trong danh sách
-  profilePictureElement.src = "https://i.imgur.com/OM7hS4R.jpg"; // Đặt đường dẫn hình ảnh mới
-}
-
-
-var dialogLeftElements = document.getElementsByClassName("dialog-left");
-if (dialogLeftElements.length > 0) {
-  var dialogLeftElement = dialogLeftElements[0]; // Lấy phần tử đầu tiên trong danh sách
-  var hrElements = dialogLeftElement.getElementsByTagName("hr");
-  while (hrElements.length > 0) {
-    var hrElement = hrElements[0]; // Lấy thẻ hr đầu tiên
-    hrElement.parentNode.removeChild(hrElement); // Xóa thẻ hr
-  }
-}
-
-var element = document.getElementsByClassName("mb-10")[0]; // Lấy phần tử đầu tiên có lớp là "mb-10"
-element.style.marginTop = "-80px"; // Thay đổi giá trị margin right thành 20px
-element.style.marginRight = "-15px"; // Thay đổi giá trị margin right thành 20px
-element.style.width = "136px";
-element.style.float = "Right";
-
-var linkElements = document.querySelectorAll('a[data-toggle="modal"][data-target="#inPageModal"][onclick="openSkinsList();"]');
-if (linkElements.length > 0) {
-  var linkElement = linkElements[0];
-  linkElement.textContent = "Skin o day ne";
-}
-
-var inputElement = document.getElementById("nick");
-if (inputElement) {
-  inputElement.placeholder = "Nhập tên zô i ><"; // Thay "New Placeholder" bằng giá trị placeholder mới bạn muốn đặt
-}
-
-// var pink = document.querySelector(".btn.btn-play.btn-success.btn-needs-server");
-// if (pink) {
-//   pink.style.background = "green"; // Thay "red" bằng màu nền mới bạn muốn áp dụng
-// }
