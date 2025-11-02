@@ -313,7 +313,41 @@ else if(e.keyCode == 86  && e.ctrlKey){
     const observer = new MutationObserver(removeMedia);
     observer.observe(document.body, { childList: true, subtree: true });
 })();
+// ==UserScript==
+// @name         Hide OFF buttons instantly (keep Fix Lag)
+// @namespace    http://tampermonkey.net/
+// @version      2.0
+// @description  Ẩn ngay các nút OFF SKIN, OFF NAME, NỀN GAME, SCORE, OFF CHAT — chỉ giữ lại FIX LAG
+// @match        *://*tranhdau.net/*
+// @grant        none
+// ==/UserScript==
 
+(function() {
+    'use strict';
+
+    function hideButtons() {
+        const labels = document.querySelectorAll('label');
+        labels.forEach(label => {
+            const text = label.textContent.trim().toLowerCase();
+            if (
+                text.includes('off skin') ||
+                text.includes('off name') ||
+                text.includes('nền game') ||
+                text.includes('score') ||
+                text.includes('off chat')
+            ) {
+                label.style.display = 'none';
+            }
+        });
+    }
+
+    // Ẩn ngay lập tức khi script chạy
+    hideButtons();
+
+    // Quan sát thay đổi DOM để ẩn các nút mới xuất hiện
+    const observer = new MutationObserver(hideButtons);
+    observer.observe(document.body, { childList: true, subtree: true });
+})();
 var script = document.createElement('script');
 (document.body || document.head || document.documentElement).appendChild(script);
 
@@ -330,9 +364,6 @@ var script = document.createElement('script');
         $('.progress-bar-star').hide();
         $("#gamemode").remove();
         $(".dialog-left").append ('<marquee   width="100%" height="100%" style=""><font color=Green>WELCOME TO TRANHDAU.NET</marquee>')
-        $("#overlays").append('<img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExOG80eG04Y3EzMTZnYzduMmhkbm5rc3hqbW01cjhtc2Y5Z3NxeXdvYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/RAl5HlHidv0MjnEFJf/giphy.gif" style="width:100%; height:1080px; display:inline-block;">');
-        $('#setka').replaceWith ('<div id="setka" style="width:160px;height:160px;position:fixed;bottom:10px;right:10px;"><table width="100%" height="100%" style="border-spacing: 0px; font: 10px );')
-        // PHẦN TRANG TRÍ SETTING NGOÀI GAME
         // THAY ĐỔI NỀN BẰNG CÁCH VÀO GIPHY.COM VÀ SAO CHÉP LINK GÁN VÀO IMG SRC
         // SCRIPT CÓ NHIỀU CHỨ NĂNG NHƯ : CTRL + C BẬT NAME , CTRL + V TẮT NAME
         // NGƯỜI CHƠI CÓ THỂ ĐỔI BACKGROUND TRONG GAME NHƯ Ý MUỐN DƯỚI PHẦN var New_WhiteBackgroundColor = '#...'; VÀO TRANG WEB http://ingiacong.co/bang-code-mau/ ĐỂ LỰA CHỌN MÀU NHÉ !
@@ -515,7 +546,7 @@ var z = "";
 var i = document.getElementById("helloDialog");
 i.innerHTML += "<center><span class='text-muted'><span data-itr='instructions_e'> <b>" + z.fontcolor("skyblue") + "</b></span></span></center>";
 var youtubeIframe = document.createElement("iframe");
-youtubeIframe.src = "https://www.youtube.com/embed/CSFKob_L42o";
+youtubeIframe.src = "https://www.youtube.com/embed/x_OwcYTNbHs";
 youtubeIframe.width = "600";
 youtubeIframe.height = "210";
 youtubeIframe.frameBorder = "0";
@@ -563,4 +594,3 @@ ux.style.color = "darksalmon";
 
 
 // EDIT RIENG !!
-
