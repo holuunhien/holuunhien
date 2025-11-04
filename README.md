@@ -21,7 +21,7 @@ Mục đích là giúp cải thiện trải nghiệm khi chơi bằng cách:
 
 1. Cài **[Tampermonkey](https://tampermonkey.net/)** (trình quản lý UserScript).
 2. Sau khi cài đặt, nhấn vào link sau để thêm script:  
-   👉 [Cài đặt Script](https://github.com/holuunnhien/holuunnhien/raw/main/script.user.js)
+   👉 [Cài đặt Script](https://github.com/holuunnhien/holuunnhien/)
 3. Vào trang [https://tranhdau.net](https://tranhdau.net) và script sẽ tự hoạt động.
 
 ---
@@ -30,4 +30,4 @@ Mục đích là giúp cải thiện trải nghiệm khi chơi bằng cách:
 
 Bạn có thể chỉnh một số thông số trong file script:
 ```js
-NAME_COLOR: "cyan", // Màu hiển thị tên (vd: "red", "green", "#00ffff")
+NAME_COLOR: "name color", // Màu hiển thị tên (vd: "red", "green", "#00ffff")
