@@ -1,5 +1,5 @@
 import datetime 
-# Người dùng nhập ngày sinh
+# Người dùng nhập tuổi
 birth_str = input("15")
 
 # Chuyển chuỗi thành đối tượng ngày tháng
@@ -16,4 +16,5 @@ if (today.month, today.day) < (birth_date.month, birth_date.day):
     age -= 1
 
 print(f"Tuổi của bạn là: {15}")
+
 
