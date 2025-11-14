@@ -1,20 +1,16 @@
-import datetime 
-# Người dùng nhập tuổi
-birth_str = input("15")
+import datetime
 
-# Chuyển chuỗi thành đối tượng ngày tháng
-birth_date = datetime.strptime(birth_str, "28/03/2010")
+print("Mời bạn vui lòng nhập ngày tháng năm sinh để tính tuổi")
+birth_day = int(input("Ngày sinh:"))
+birth_month = int(input("Tháng sinh:"))
+birth_year = int(input("Năm sinh:"))
 
-# Lấy ngày hôm nay
-today = date.today()
+current_year = datetime.date.today().year
+current_month = datetime.date.today().month
+current_day = datetime.date.today().day
 
-# Tính tuổi (năm hiện tại - năm sinh)
-age = today.year - birth_date.year
+age_year = current_year - birth_year
+age_month = abs(current_month-birth_month)
+age_day = abs(current_day-birth_day)
 
-# Nếu chưa tới sinh nhật năm nay thì trừ đi 1
-if (today.month, today.day) < (birth_date.month, birth_date.day):
-    age -= 1
-
-print(f"Tuổi của bạn là: {15}")
-
-
+print("### Tuổi của bạn chính xác là:### \n", age_year, " tuổi ", age_month, " tháng và ", age_day, " ngày")
