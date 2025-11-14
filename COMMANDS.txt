@@ -5,7 +5,7 @@ ip: d?a ch? IP c?a máy tính c?n ki?m tra, host là tên c?a máy tính c?n ki?
 /t: yêu c?u g?i gói tin liên t?c d?n máy dích cho d?n khi b?n b?m Ctrl + C d? k?t thúc.
 /a: nh?n d?a ch? IP t? tên máy tính.
 /l: xác d?nh d? r?ng c?a gói tin g?i di ki?m tra.
-/n: xác d?nh s? gói tin g?i di.
+/n: xác d?nh s? gói tin g?i di..
 L?nh Tracert : Dòng l?nh: tracert ip/host . Trong dó:
 
 ip/host là d?a ch? IP ho?c tên máy tính c?n ki?m tra.
