@@ -1,0 +1,4 @@
+GIẢI THÍCH CÁC ĐOẠN MÃ PYTHON KHÔNG BIẾT 
+- CHÚNG TA CÓ THỂ DÙNG "import turtle" ĐỂ VẼ NHỮNG GÌ ĐÓ MÀ TA MUỐN
+- DÙNG LỆNH " pen or t " để tạo đối tượng turtle ví dụ : "pen = turtle.Turtle()" or "t= turtle.Turtle()"
+- CÒN ĐOẠN "for _ in range (.) là có nghĩa có thể lặp lại nhưng không cần dùng biến lặp.
