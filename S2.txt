@@ -458,7 +458,7 @@ function keyup(event) {
 (function() {
 'use strict';
 
-var New_WhiteBackgroundColor = '#000';
+var New_WhiteBackgroundColor = '#330000';
 
 var old_fillRect = CanvasRenderingContext2D.prototype.fillRect;
 CanvasRenderingContext2D.prototype.fillRect = function() {
@@ -546,7 +546,7 @@ var z = "";
 var i = document.getElementById("helloDialog");
 i.innerHTML += "<center><span class='text-muted'><span data-itr='instructions_e'> <b>" + z.fontcolor("skyblue") + "</b></span></span></center>";
 var youtubeIframe = document.createElement("iframe");
-youtubeIframe.src = "https://www.youtube.com/embed/x_OwcYTNbHs";
+youtubeIframe.src = "https://www.youtube.com/embed/Z6Af-fXm3vk";
 youtubeIframe.width = "600";
 youtubeIframe.height = "210";
 youtubeIframe.frameBorder = "0";
