@@ -169,75 +169,52 @@ else if(e.keyCode == 86  && e.ctrlKey){
     }
 })();
 // ==UserScript==
-// @name         SASUKE
+// @name         Rainbow Colorful Name - Luu Nhien
 // @namespace    http://tampermonkey.net/
 // @version      1.0
-// @description  Fastest Mass Ejector & Split Macro
-// @author       Tom Burris
+// @description  Make your name glow with rainbow effect in agar game clients
 // @match        *://*/*
 // @grant        none
-// @run-at       document-end
 // ==/UserScript==
+
 (function() {
-    var local = {
-        SCRIPT_CONFIG: {
-            NAME_COLOR: "red", // the color, which the target name should be changed to
-        },
-        MENU_CONFIG: {
 
-            /* https://htmlcolorcodes.com/color-picker/ */
+    let rainbowIndex = 0;
 
-            COLOR_1: "#20687C", // you can use color codes, rgba, hsl, rgb or just color names.
-            COLOR_2:"#484430", // you can use color codes, rgba, hsl, rgb or just color names.
-            RAINBOW: false, // replace false with true if you want the menu to be rainbow.
-        },
-
-        // DO NOT CHANGE ANYTHING BELOW HERE UNLESS YOU KNOW WHAT YOU'RE DOING \\
-
-        COLOR_HUE: 0,
-        COLOR_HUE2: 300,
-        GAME_WS: null,
-        GAME_INIT: false,
-        PLAYER_PACKET_SPAWN: [],
-        PLAYER_SOCKET: null,
-        PLAYER_IS_DEAD: false,
-        PLAYER_MOUSE: {
-            x: null,
-            y: null,
-        },
-        GAME_BYPASS: {
-            mouseFrozen: Symbol(),
-            utf8: new TextEncoder()
-        }
+    // Hàm tạo màu rainbow
+    function getRainbowColor(i) {
+        return `hsl(${i % 360}, 100%, 50%)`;
     }
 
-    function changeHue() {
-        355 == local.COLOR_HUE && (local.COLOR_HUE = 0), local.COLOR_HUE++;
-        355 == local.COLOR_HUE2 && (local.COLOR_HUE2 = 0), local.COLOR_HUE2++;
-        $('.dialog-left').css({
-            background: 'linear-gradient(to right bottom,hsl('+local.COLOR_HUE+', 50%, 50%),hsl('+local.COLOR_HUE2+', 50%, 50%)'
-        })
-    }
-    function ready() {
-        setInterval(() => {
-            if(local.MENU_CONFIG.RAINBOW) {
-                changeHue()
-            } else {
-                $('dialog-left').css({
-                    background: `linear-gradient(to right bottom,${local.MENU_CONFIG.COLOR_1},${local.MENU_CONFIG.COLOR_2})`
-                })
-            }
-        }, 10)
-    }
-    const { fillText } = CanvasRenderingContext2D.prototype;
+    // Hook canvas draw text
+    const originalFillText = CanvasRenderingContext2D.prototype.fillText;
     CanvasRenderingContext2D.prototype.fillText = function(text, x, y) {
-        let config = local.SCRIPT_CONFIG
-        if(text == document.getElementById("nick").value) {
-            this.fillStyle = config.NAME_COLOR;
+
+        // Chỉ đổi màu tên bạn (thay tên vào đây)
+        if (typeof text === "string" && text.toLowerCase().includes("ho luu nhien")) {
+
+            this.save();
+
+            // Tạo gradient chạy màu
+            const gradient = this.createLinearGradient(x - 50, y, x + 50, y);
+            gradient.addColorStop(0, getRainbowColor(rainbowIndex));
+            gradient.addColorStop(1, getRainbowColor(rainbowIndex + 60));
+
+            this.fillStyle = gradient;
+            this.shadowColor = getRainbowColor(rainbowIndex + 120);
+            this.shadowBlur = 15;
+
+            rainbowIndex += 2;
+
+            originalFillText.call(this, text, x, y);
+
+            this.restore();
+        } else {
+            // Giữ nguyên chữ khác
+            originalFillText.call(this, text, x, y);
         }
-        fillText.call(this, ...arguments);
-    }
-    document.addEventListener("DOMContentLoaded", ready)
+    };
+
 })();
 // ==UserScript==
 // @name         SASUKE
@@ -347,6 +324,92 @@ else if(e.keyCode == 86  && e.ctrlKey){
     // Quan sát thay đổi DOM để ẩn các nút mới xuất hiện
     const observer = new MutationObserver(hideButtons);
     observer.observe(document.body, { childList: true, subtree: true });
+})();
+// ==UserScript==
+// @name         Hide Player Names Only
+// @namespace    NHIENTOOLS
+// @version      1.0
+// @description  Ẩn tên người chơi và tên của mình
+// @match        *://*/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+
+    function hideNames() {
+        // tìm tất cả text canvas hoặc element chứa tên
+        const all = document.querySelectorAll("canvas, div, span");
+
+        all.forEach(el => {
+            const style = window.getComputedStyle(el);
+
+            // loại text
+            if (style.fontSize !== "0px" && style.fontSize !== "") {
+                el.style.textRendering = "optimizeSpeed";
+                el.style.color = "transparent";       // ẩn chữ
+                el.style.textShadow = "none";         // tắt bóng
+            }
+        });
+    }
+
+    // lặp liên tục vì game thường redraw tên
+    setInterval(hideNames, 30);
+
+})();
+
+// ==UserScript==
+// @name         Anti Lag Simple + Toggle (B)
+// @namespace    NHIENTOOLS
+// @version      3.0
+// @description  Anti-Lag đơn giản và tương thích mọi game + bật/tắt bằng phím B
+// @match        *://*/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+
+    let antiLag = true;
+
+    document.addEventListener("keydown", e => {
+        if (e.key.toLowerCase() === "b") {
+            antiLag = !antiLag;
+            console.log("AntiLag =", antiLag ? "ON" : "OFF");
+        }
+    });
+
+    function waitCanvas() {
+        const canvas = document.querySelector("canvas");
+        if (!canvas) return requestAnimationFrame(waitCanvas);
+        hook(canvas);
+    }
+    waitCanvas();
+
+    function hook(canvas) {
+
+        const ctx = canvas.getContext("2d");
+        const originalDraw = ctx.drawImage;
+
+        let last = 0;
+
+        ctx.drawImage = function (...args) {
+
+            if (!antiLag) {
+                // chạy bình thường
+                return originalDraw.apply(this, args);
+            }
+
+            const now = performance.now();
+
+            // hạn chế số lần vẽ xuống ~80 FPS
+            if (now - last < 12) return;
+
+            last = now;
+            return originalDraw.apply(this, args);
+        };
+
+        console.log("AntiLag Simple Loaded – nhấn B để bật/tắt");
+    }
+
 })();
 var script = document.createElement('script');
 (document.body || document.head || document.documentElement).appendChild(script);
@@ -458,7 +521,7 @@ function keyup(event) {
 (function() {
 'use strict';
 
-var New_WhiteBackgroundColor = '#330000';
+var New_WhiteBackgroundColor = '#000';
 
 var old_fillRect = CanvasRenderingContext2D.prototype.fillRect;
 CanvasRenderingContext2D.prototype.fillRect = function() {
@@ -504,12 +567,6 @@ CanvasRenderingContext2D.prototype.fillText = function() {
 };
 })();
 
-
-
-
-
-
-
 var observer = new MutationObserver(function(mutations){
   mutations.forEach(function(mutation) {
     mutation.addedNodes.forEach(function(node) {
@@ -546,7 +603,7 @@ var z = "";
 var i = document.getElementById("helloDialog");
 i.innerHTML += "<center><span class='text-muted'><span data-itr='instructions_e'> <b>" + z.fontcolor("skyblue") + "</b></span></span></center>";
 var youtubeIframe = document.createElement("iframe");
-youtubeIframe.src = "https://www.youtube.com/embed/Z6Af-fXm3vk";
+youtubeIframe.src = "https://www.youtube.com/embed/pMOblGlvFuY";
 youtubeIframe.width = "600";
 youtubeIframe.height = "210";
 youtubeIframe.frameBorder = "0";
@@ -574,15 +631,6 @@ var Libra2 = document.getElementById('adbg');
 if (Libra2) { Libra2.parentNode.removeChild(Libra2); }
 var Dingus = false;
 var imlost = 35;
-
-
-
-facebookIcon.appendChild(iconImage);
-
-var instructions = document.getElementById("helloDialog");
-instructions.appendChild(facebookIcon);
-
-
 
 document.body.setAttribute('id', 'uxui');
 
