@@ -1,65 +1,16 @@
-import turtle as t
-import time as ti
+import datetime
 
-def rectangle(hor,ver,col):
-    t.pendown() #tạo con trỏ
-    t.pensize(1)
-    t.color(col)
-    t.begin_fill()
-    for counter in range(1,3):
-        t.forward(hor)
-        t.right(90)
-        t.forward(ver)
-        t.right(90)
-    t.end_fill()
-    t.penup()
-t.penup()
-t.speed('slow')
-t.bgcolor('Dodger blue')
+print("Mời bạn vui lòng nhập ngày tháng năm sinh để tính tuổi")
+birth_day = int(input("Ngày sinh:"))
+birth_month = int(input("Tháng sinh:"))
+birth_year = int(input("Năm sinh:"))
 
-t.goto(-100,-150)
-rectangle(50,20,'blue')
-t.goto(-30,-150)
-rectangle(50,20,'blue')
+current_year = datetime.date.today().year
+current_month = datetime.date.today().month
+current_day = datetime.date.today().day
 
-t.goto(-25,-50)
-rectangle(15,100,'grey')
-t.goto(-55,-50)
-rectangle(-15,100,'grey')
+age_year = current_year - birth_year
+age_month = abs(current_month-birth_month)
+age_day = abs(current_day-birth_day)
 
-t.goto(-90,100)
-rectangle(100,150,'red')
-
-t.goto(-150,70)
-rectangle(60,15,'grey')
-t.goto(-150,110)
-rectangle(15,40,'grey')
-t.goto(10,70)
-rectangle(60,15,'grey')
-t.goto(55,110)
-rectangle(15,40,'grey')
-
-t.goto(-50,120)
-rectangle(15,20,'grey')
-t.goto(-85,170)
-rectangle(80,50,'red')
-t.goto(-60,160)
-rectangle(30,10,'white')
-t.goto(-60,160)
-rectangle(5,5,'black')
-t.goto(-45,155)
-rectangle(5,5,'black')
-t.goto(-65,135)
-t.right(5)
-rectangle(40,5,'black')
-t.goto(-155,130)
-rectangle(25,25,'green')
-t.goto(-147,130)
-rectangle(10,15,t.bgcolor())
-t.goto(50,130)
-rectangle(25,25,'green')
-t.goto(58,130)
-rectangle(10,15,t.bgcolor())
-t.hideturtle()
-ti.sleep(10)
-t.hideturtle()
+print("### Tuổi của bạn chính xác là:### \n", age_year, " tuổi ", age_month, " tháng và ", age_day, " ngày")
