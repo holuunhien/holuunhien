@@ -110,111 +110,107 @@ else if(e.keyCode == 86  && e.ctrlKey){
                 })
 ();
 // ==UserScript==
-// @name         Nh1enTools Map Cleaner (Instant Run)
-// @namespace    http://tampermonkey.net/
-// @version      1.1
-// @description  Xóa video, nhạc, rác + thêm chữ Nh1enTools vào minimap (chạy ngay lập tức)
-// @author       Bạn
-// @match        https://tranhdau.net/*
-// @grant        none
-// @run-at       document-end
-// ==/UserScript==
-
-(function() {
-    'use strict';
-
-    function runScript() {
-        // Xóa các phần tử rác ngay lập tức
-        document.querySelectorAll('.santaright, .snakerightbottom, .santa, .js-render-canvas').forEach(el => el.remove());
-
-        // Ẩn snowflakes nếu có
-        let snowElement = document.querySelector(".snowflakes");
-        if (snowElement) {
-            snowElement.style.display = 'none';
-        }
-
-        // Thêm chữ "Nh1enTools" vào minimap
-        let miniMapWrapper = document.getElementById('mini-map-wrapper');
-        if (miniMapWrapper && !miniMapWrapper.querySelector('.nh1entools-text')) {
-            let textElement = document.createElement('span');
-            textElement.textContent = 'Nh1enTools';
-            textElement.className = 'nh1entools-text';
-
-            // Style chữ
-            textElement.style.position = 'absolute';
-            textElement.style.top = '50%';
-            textElement.style.left = '50%';
-            textElement.style.transform = 'translate(-50%, -50%)';
-            textElement.style.color = 'Red';
-            textElement.style.fontFamily = 'cursive, serif';
-            textElement.style.fontSize = '20px';
-            textElement.style.zIndex = '200';
-
-            miniMapWrapper.appendChild(textElement);
-
-            // Làm minimap trong suốt
-            miniMapWrapper.style.background = 'transparent';
-            miniMapWrapper.style.opacity = '0.5';
-        }
-
-        // Cho phép phím bấm hoạt động bình thường
-        document.onkeydown = function(e) { };
-    }
-
-    // Chạy ngay khi DOM sẵn sàng
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", runScript);
-    } else {
-        runScript();
-    }
-})();
-// ==UserScript==
-// @name         Rainbow Colorful Name - Luu Nhien
+// @name         Custom Minimap Background
 // @namespace    http://tampermonkey.net/
 // @version      1.0
-// @description  Make your name glow with rainbow effect in agar game clients
+// @description  Thay nền minimap và ẩn màu đen mặc định
+// @author       Bạn
 // @match        *://*/*
 // @grant        none
 // ==/UserScript==
 
 (function() {
+    'use strict';
 
-    let rainbowIndex = 0;
+    const css = `
+        /* Chọn minimap (A1, A2…D4) và thay nền */
+        #mini-map, .mini-map, .minimap {
+            background: url("https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExc2c0NzJwdThxY2dwbGFwcjNzbnAya3dob3d3ZXEwNmJ3Y3IwZmczbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/yCDoXaZyBVilq/giphy.gif")
+                no-repeat center center !important;
+            background-size: cover !important;
+        }
 
-    // Hàm tạo màu rainbow
-    function getRainbowColor(i) {
-        return `hsl(${i % 360}, 100%, 50%)`;
+        /* Ẩn màu đen mặc định */
+        #mini-map canvas, .mini-map canvas, .minimap canvas {
+            background: transparent !important;
+        }
+    `;
+
+    // Tạo thẻ style và gắn vào head
+    const style = document.createElement('style');
+    style.textContent = css;
+    document.head.appendChild(style);
+})();
+// ==UserScript==
+// @name         SASUKE
+// @namespace    http://tampermonkey.net/
+// @version      1.0
+// @description  Fastest Mass Ejector & Split Macro
+// @author       Tom Burris
+// @match        *://*/*
+// @grant        none
+// @run-at       document-end
+// ==/UserScript==
+(function() {
+    var local = {
+        SCRIPT_CONFIG: {
+            NAME_COLOR: "red", // the color, which the target name should be changed to
+        },
+        MENU_CONFIG: {
+
+            /* https://htmlcolorcodes.com/color-picker/ */
+
+            COLOR_1: "#20687C", // you can use color codes, rgba, hsl, rgb or just color names.
+            COLOR_2:"#484430", // you can use color codes, rgba, hsl, rgb or just color names.
+            RAINBOW: false, // replace false with true if you want the menu to be rainbow.
+        },
+
+        // DO NOT CHANGE ANYTHING BELOW HERE UNLESS YOU KNOW WHAT YOU'RE DOING \\
+
+        COLOR_HUE: 0,
+        COLOR_HUE2: 300,
+        GAME_WS: null,
+        GAME_INIT: false,
+        PLAYER_PACKET_SPAWN: [],
+        PLAYER_SOCKET: null,
+        PLAYER_IS_DEAD: false,
+        PLAYER_MOUSE: {
+            x: null,
+            y: null,
+        },
+        GAME_BYPASS: {
+            mouseFrozen: Symbol(),
+            utf8: new TextEncoder()
+        }
     }
 
-    // Hook canvas draw text
-    const originalFillText = CanvasRenderingContext2D.prototype.fillText;
+    function changeHue() {
+        355 == local.COLOR_HUE && (local.COLOR_HUE = 0), local.COLOR_HUE++;
+        355 == local.COLOR_HUE2 && (local.COLOR_HUE2 = 0), local.COLOR_HUE2++;
+        $('.dialog-left').css({
+            background: 'linear-gradient(to right bottom,hsl('+local.COLOR_HUE+', 50%, 50%),hsl('+local.COLOR_HUE2+', 50%, 50%)'
+        })
+    }
+    function ready() {
+        setInterval(() => {
+            if(local.MENU_CONFIG.RAINBOW) {
+                changeHue()
+            } else {
+                $('dialog-left').css({
+                    background: `linear-gradient(to right bottom,${local.MENU_CONFIG.COLOR_1},${local.MENU_CONFIG.COLOR_2})`
+                })
+            }
+        }, 10)
+    }
+    const { fillText } = CanvasRenderingContext2D.prototype;
     CanvasRenderingContext2D.prototype.fillText = function(text, x, y) {
-
-        // Chỉ đổi màu tên bạn (thay tên vào đây)
-        if (typeof text === "string" && text.toLowerCase().includes("ho luu nhien")) {
-
-            this.save();
-
-            // Tạo gradient chạy màu
-            const gradient = this.createLinearGradient(x - 50, y, x + 50, y);
-            gradient.addColorStop(0, getRainbowColor(rainbowIndex));
-            gradient.addColorStop(1, getRainbowColor(rainbowIndex + 60));
-
-            this.fillStyle = gradient;
-            this.shadowColor = getRainbowColor(rainbowIndex + 120);
-            this.shadowBlur = 15;
-
-            rainbowIndex += 2;
-
-            originalFillText.call(this, text, x, y);
-
-            this.restore();
-        } else {
-            // Giữ nguyên chữ khác
-            originalFillText.call(this, text, x, y);
+        let config = local.SCRIPT_CONFIG
+        if(text == document.getElementById("nick").value) {
+            this.fillStyle = config.NAME_COLOR;
         }
-    };
-
+        fillText.call(this, ...arguments);
+    }
+    document.addEventListener("DOMContentLoaded", ready)
 })();
 // ==UserScript==
 // @name         SASUKE
@@ -235,7 +231,7 @@ else if(e.keyCode == 86  && e.ctrlKey){
     fpsDiv.style.top = '10px';
     fpsDiv.style.right = '10px'; // 👈 Chỉnh sang phải
     fpsDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-    fpsDiv.style.color = '#00FF00';
+    fpsDiv.style.color = '#66CCFF';
     fpsDiv.style.fontFamily = 'monospace';
     fpsDiv.style.padding = '5px 10px';
     fpsDiv.style.zIndex = '9999';
@@ -326,38 +322,6 @@ else if(e.keyCode == 86  && e.ctrlKey){
     observer.observe(document.body, { childList: true, subtree: true });
 })();
 // ==UserScript==
-// @name         Hide Player Names Only
-// @namespace    NHIENTOOLS
-// @version      1.0
-// @description  Ẩn tên người chơi và tên của mình
-// @match        *://*/*
-// @grant        none
-// ==/UserScript==
-
-(function() {
-
-    function hideNames() {
-        // tìm tất cả text canvas hoặc element chứa tên
-        const all = document.querySelectorAll("canvas, div, span");
-
-        all.forEach(el => {
-            const style = window.getComputedStyle(el);
-
-            // loại text
-            if (style.fontSize !== "0px" && style.fontSize !== "") {
-                el.style.textRendering = "optimizeSpeed";
-                el.style.color = "transparent";       // ẩn chữ
-                el.style.textShadow = "none";         // tắt bóng
-            }
-        });
-    }
-
-    // lặp liên tục vì game thường redraw tên
-    setInterval(hideNames, 30);
-
-})();
-
-// ==UserScript==
 // @name         Anti Lag Simple + Toggle (B)
 // @namespace    NHIENTOOLS
 // @version      3.0
@@ -411,6 +375,38 @@ else if(e.keyCode == 86  && e.ctrlKey){
     }
 
 })();
+// ==UserScript==
+// @name         Custom Minimap Background
+// @namespace    http://tampermonkey.net/
+// @version      1.0
+// @description  Thay nền minimap và ẩn màu đen mặc định
+// @author       Bạn
+// @match        *://*/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    const css = `
+        /* Chọn minimap (A1, A2…D4) và thay nền */
+        #mini-map, .mini-map, .minimap {
+            background: url("https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExczBvdzEzeHZoeDEzZDN0ZHkwZnEzdDZ1cDVxbjk4OHY4bHpjcGxxeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/PJvvewo5mTtXW/giphy.gif")
+                no-repeat center center !important;
+            background-size: cover !important;
+        }
+
+        /* Ẩn màu đen mặc định */
+        #mini-map canvas, .mini-map canvas, .minimap canvas {
+            background: transparent !important;
+        }
+    `;
+
+    // Tạo thẻ style và gắn vào head
+    const style = document.createElement('style');
+    style.textContent = css;
+    document.head.appendChild(style);
+})();
 var script = document.createElement('script');
 (document.body || document.head || document.documentElement).appendChild(script);
 
@@ -426,17 +422,17 @@ var script = document.createElement('script');
         $('.agario-exp-bar').hide();
         $('.progress-bar-star').hide();
         $("#gamemode").remove();
-        $(".dialog-left").append ('<marquee   width="100%" height="100%" style=""><font color=Green>WELCOME TO TRANHDAU.NET</marquee>')
-        // THAY ĐỔI NỀN BẰNG CÁCH VÀO GIPHY.COM VÀ SAO CHÉP LINK GÁN VÀO IMG SRC
-        // SCRIPT CÓ NHIỀU CHỨ NĂNG NHƯ : CTRL + C BẬT NAME , CTRL + V TẮT NAME
-        // NGƯỜI CHƠI CÓ THỂ ĐỔI BACKGROUND TRONG GAME NHƯ Ý MUỐN DƯỚI PHẦN var New_WhiteBackgroundColor = '#...'; VÀO TRANG WEB http://ingiacong.co/bang-code-mau/ ĐỂ LỰA CHỌN MÀU NHÉ !
-        // VÀ CÒN CÓ TÊN MÀU LÀM CHO KHI CHƠI GAME TRỞ NÊN BẤT MẮT
-        // CÓ PHẦN NGHE NHẠC Ở PHẦN BÊN DƯỚI SETTING THAY ĐỔI NHẠC BẰNG CÁCH VÀO YTB CHỌN NHẠC MÀ MÌNH MUỐN, SAU ĐÓ COPY LINK TRÊN THANH TÌM KIẾM GÁN VÀO PHẦN youtubeIframe.src = "https://www.youtube.com/embed/... ==>>
-        // CHỈ LẤY NHỮNG CHỮ SỐ ĐẰNG SAU ĐẰNG SAU PHẦN WATCH , KHÔNG LẤY HẾT NẾY LẤY HẾT SẼ BỊ LỖI CODE PHẦN VIDEO(MUSIC)
-        // TÔI CÒN NHIỀU BẢN SCRIPT HAY VÀ ĐẸP MẮT HƠN NỮA VÀ CŨNG ĐANG LÀM MỘT PROJECT XỊN HƠN NHỮNG PROJECT KHÁC
-        // MUỐN LẤY SCRIPT VÀO TRANG GITHUB CỦA TÔI https://github.com/holuunhien/holuunhien/
-        // NỀU CÓ THẮC MẮC GÌ SCRIPT HAY LỖI SCRIPT CỨ LIÊN HỆ VÀO FB: https://www.facebook.com/hn283 TÔI SẼ GIẢI ĐÁP THẮC MẮC CỦA BẠN !
-                                                                                                    // CHÚC BẠN CHƠI GAME VUI VẺ !
+
+
+//===========================================================================XÓA================================
+
+
+        $('.dialog-left').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
+        $('.agario-panel').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
+        $('.btn-primary').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
+        $('.btn-needs-server').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
+       // $('.btn-primary').text('Skin');
+       // $(".btn-play").text('Play');
 
 
 window.addEventListener('keydown', keydown);
@@ -466,8 +462,8 @@ function keydown(event) {
         setTimeout(mass,Speed);
     }// Center
     case 83:                                       // S
-        X = window.innerWidth / 2;
-        Y = window.innerHeight / 2;
+        X = window.innerWidth/2;
+        Y = window.innerHeight/2;
         $("canvas").trigger($.Event("mousemove", {clientX: X,clientY: Y}));
 
     break; // Triplesplit
@@ -521,7 +517,7 @@ function keyup(event) {
 (function() {
 'use strict';
 
-var New_WhiteBackgroundColor = '#000';
+var New_WhiteBackgroundColor = '#000000';
 
 var old_fillRect = CanvasRenderingContext2D.prototype.fillRect;
 CanvasRenderingContext2D.prototype.fillRect = function() {
@@ -559,86 +555,10 @@ function calculateRemain(text) {
 
 var old_fillText = CanvasRenderingContext2D.prototype.fillText;
 CanvasRenderingContext2D.prototype.fillText = function() {
-    if (arguments[0] === 'Leaderboard') {
-        arguments[0] = ' PRC TOWN';
-        this.fillStyle = 'skyblue';
-    }
+    if (arguments[0]=='Leaderboard')
+        arguments[0] = '    IL TOOL ❥'
     return old_fillText.apply(this, arguments);
 };
 })();
 
-var observer = new MutationObserver(function(mutations){
-  mutations.forEach(function(mutation) {
-    mutation.addedNodes.forEach(function(node) {
-      if (/agario\.core\.js/i.test(node.src)){
-        observer.disconnect();
-        node.parentNode.removeChild(node);
-        var request = new XMLHttpRequest();
-        request.open("get", node.src, true);
-        request.send();
-        request.onload = function(){
-          var coretext = this.responseText;
-          var newscript = document.createElement("script");
-          newscript.type = "text/javascript";
-          newscript.async = true;
-          window._op = new mouseWheelZoom();
-          newscript.textContent = replaceCore(coretext);
-          document.body.appendChild(newscript);
-        };
-      }
-    });
-  });
-});
-observer.observe(document, {attributes:true, characterData:true, childList:true, subtree:true});
-
-const replaceCore = core => {
-  core = core.replace(/;if\((\w)<1\.0\){/i, `;if(0){`);
-  core = core.replace(/0;\w\[\w\+...>>3\]=(\w);\w\[\w\+...>>3\]=(\w);\w\[\w\+...>>3\]=(\w);\w\[\w\+...>>3\]=(\w);/i, `$& if(Math.abs($3-$1)>14e3 && Math.abs($4-$2)>14e3){window._op.mOX = ($1+$3)/2; window._op.mOY = ($2+$4)/2};`);
-
-
-  return core;
-}
-
-var z = "";
-var i = document.getElementById("helloDialog");
-i.innerHTML += "<center><span class='text-muted'><span data-itr='instructions_e'> <b>" + z.fontcolor("skyblue") + "</b></span></span></center>";
-var youtubeIframe = document.createElement("iframe");
-youtubeIframe.src = "https://www.youtube.com/embed/pMOblGlvFuY";
-youtubeIframe.width = "600";
-youtubeIframe.height = "210";
-youtubeIframe.frameBorder = "0";
-youtubeIframe.allowfullscreen = true;
-youtubeIframe.style.borderRadius = "10px";
-youtubeIframe.style.float = "left";
-youtubeIframe.style.marginTop = "228px";
-
-i.appendChild(youtubeIframe);
-load();
-function load() {
-    if (document.getElementById("overlays").style.display!="none") {
-        document.getElementById("settings").style.display = "block";
-    } else {
-        setTimeout(load, 100);
-    }
-}
-var Libra = document.getElementById('adbg');
-if (Libra) { Libra.parentNode.removeChild(Libra); }
-
-var Libra1 = document.getElementById('adbg');
-if (Libra1) { Libra1.parentNode.removeChild(Libra1); }
-
-var Libra2 = document.getElementById('adbg');
-if (Libra2) { Libra2.parentNode.removeChild(Libra2); }
-var Dingus = false;
-var imlost = 35;
-
-document.body.setAttribute('id', 'uxui');
-
-
-var ux = document.getElementById("uxui");
-ux.style.fontFamily = "Ubuntu";
-ux.style.color = "darksalmon";
-
-
-
-// EDIT RIENG !!
+skins('202509230655500854860001758603350')
