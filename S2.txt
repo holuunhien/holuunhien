@@ -303,11 +303,11 @@ else if(e.keyCode == 86  && e.ctrlKey){
         labels.forEach(label => {
             const text = label.textContent.trim().toLowerCase();
             if (
-                text.includes('off skin') ||
-                text.includes('off name') ||
-                text.includes('nền game') ||
+                text.includes('no skin') ||
+                text.includes('no name') ||
+                text.includes('theme') ||
                 text.includes('score') ||
-                text.includes('off chat')
+                text.includes('no chat')
             ) {
                 label.style.display = 'none';
             }
@@ -391,7 +391,7 @@ else if(e.keyCode == 86  && e.ctrlKey){
     const css = `
         /* Chọn minimap (A1, A2…D4) và thay nền */
         #mini-map, .mini-map, .minimap {
-            background: url("https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExczBvdzEzeHZoeDEzZDN0ZHkwZnEzdDZ1cDVxbjk4OHY4bHpjcGxxeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/PJvvewo5mTtXW/giphy.gif")
+            background: url("https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmQwZXVua2ljZ24wZ3BmbTR1Z2VocmNnbXI1aHlqZjhqZ2syOTdvbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NqSD6IktBDLAk/giphy.gif")
                 no-repeat center center !important;
             background-size: cover !important;
         }
@@ -445,7 +445,7 @@ else if(e.keyCode == 86  && e.ctrlKey){
 
     // Click mở link
     icon.addEventListener("click", () => {
-        window.open("https://soundcloud.com/nxtmusic207/nst-new-vip-nxt-music", "_blank");
+        window.open("https://soundcloud.com/search?q=nhac%20bay%20phong&query_urn=soundcloud%3Asearch-autocomplete%3A6ae9494d188a432b8a6704b76fbc4fca", "_blank");
     });
 
     // Cho phép kéo icon
@@ -582,7 +582,7 @@ function keyup(event) {
 (function() {
 'use strict';
 
-var New_WhiteBackgroundColor = '#000';
+var New_WhiteBackgroundColor = '#5BBD2B';
 
 var old_fillRect = CanvasRenderingContext2D.prototype.fillRect;
 CanvasRenderingContext2D.prototype.fillRect = function() {
