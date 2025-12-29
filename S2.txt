@@ -407,71 +407,6 @@ else if(e.keyCode == 86  && e.ctrlKey){
     style.textContent = css;
     document.head.appendChild(style);
 })();
-// ==UserScript==
-// @name         SoundCloud Download Icon
-// @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  Add SoundCloud download icon with link
-// @match        *://*/*
-// @grant        none
-// ==/UserScript==
-
-(function () {
-    'use strict';
-
-    // Tạo icon
-    const icon = document.createElement("div");
-    icon.innerHTML = "🎵"; // có thể đổi icon
-    icon.title = "Tải SoundCloud Android";
-
-    // Style icon
-    Object.assign(icon.style, {
-        position: "fixed",
-        bottom: "100px",
-        right: "20px",
-        width: "50px",
-        height: "50px",
-        background: "#ff5500",
-        color: "#fff",
-        fontSize: "26px",
-        borderRadius: "50%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        cursor: "pointer",
-        zIndex: "999999",
-        boxShadow: "0 0 15px rgba(255,85,0,0.8)"
-    });
-
-    // Click mở link
-    icon.addEventListener("click", () => {
-        window.open("https://soundcloud.com/search?q=nhac%20bay%20phong&query_urn=soundcloud%3Asearch-autocomplete%3A6ae9494d188a432b8a6704b76fbc4fca", "_blank");
-    });
-
-    // Cho phép kéo icon
-    let isDragging = false;
-    let offsetX, offsetY;
-
-    icon.addEventListener("mousedown", e => {
-        isDragging = true;
-        offsetX = e.clientX - icon.offsetLeft;
-        offsetY = e.clientY - icon.offsetTop;
-    });
-
-    document.addEventListener("mousemove", e => {
-        if (!isDragging) return;
-        icon.style.left = e.clientX - offsetX + "px";
-        icon.style.top = e.clientY - offsetY + "px";
-        icon.style.right = "auto";
-        icon.style.bottom = "auto";
-    });
-
-    document.addEventListener("mouseup", () => {
-        isDragging = false;
-    });
-
-    document.body.appendChild(icon);
-})();
 var script = document.createElement('script');
 (document.body || document.head || document.documentElement).appendChild(script);
 
@@ -582,7 +517,7 @@ function keyup(event) {
 (function() {
 'use strict';
 
-var New_WhiteBackgroundColor = '#5BBD2B';
+var New_WhiteBackgroundColor = '#000';
 
 var old_fillRect = CanvasRenderingContext2D.prototype.fillRect;
 CanvasRenderingContext2D.prototype.fillRect = function() {
