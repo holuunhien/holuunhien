@@ -110,38 +110,6 @@ else if(e.keyCode == 86  && e.ctrlKey){
                 })
 ();
 // ==UserScript==
-// @name         Custom Minimap Background
-// @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  Thay nền minimap và ẩn màu đen mặc định
-// @author       Bạn
-// @match        *://*/*
-// @grant        none
-// ==/UserScript==
-
-(function() {
-    'use strict';
-
-    const css = `
-        /* Chọn minimap (A1, A2…D4) và thay nền */
-        #mini-map, .mini-map, .minimap {
-            background: url("https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExc2c0NzJwdThxY2dwbGFwcjNzbnAya3dob3d3ZXEwNmJ3Y3IwZmczbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/yCDoXaZyBVilq/giphy.gif")
-                no-repeat center center !important;
-            background-size: cover !important;
-        }
-
-        /* Ẩn màu đen mặc định */
-        #mini-map canvas, .mini-map canvas, .minimap canvas {
-            background: transparent !important;
-        }
-    `;
-
-    // Tạo thẻ style và gắn vào head
-    const style = document.createElement('style');
-    style.textContent = css;
-    document.head.appendChild(style);
-})();
-// ==UserScript==
 // @name         SASUKE
 // @namespace    http://tampermonkey.net/
 // @version      1.0
@@ -374,38 +342,6 @@ else if(e.keyCode == 86  && e.ctrlKey){
         console.log("AntiLag Simple Loaded – nhấn B để bật/tắt");
     }
 
-})();
-// ==UserScript==
-// @name         Custom Minimap Background
-// @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  Thay nền minimap và ẩn màu đen mặc định
-// @author       Bạn
-// @match        *://*/*
-// @grant        none
-// ==/UserScript==
-
-(function() {
-    'use strict';
-
-    const css = `
-        /* Chọn minimap (A1, A2…D4) và thay nền */
-        #mini-map, .mini-map, .minimap {
-            background: url("https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmQwZXVua2ljZ24wZ3BmbTR1Z2VocmNnbXI1aHlqZjhqZ2syOTdvbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NqSD6IktBDLAk/giphy.gif")
-                no-repeat center center !important;
-            background-size: cover !important;
-        }
-
-        /* Ẩn màu đen mặc định */
-        #mini-map canvas, .mini-map canvas, .minimap canvas {
-            background: transparent !important;
-        }
-    `;
-
-    // Tạo thẻ style và gắn vào head
-    const style = document.createElement('style');
-    style.textContent = css;
-    document.head.appendChild(style);
 })();
 var script = document.createElement('script');
 (document.body || document.head || document.documentElement).appendChild(script);
