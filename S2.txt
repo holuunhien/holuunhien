@@ -343,6 +343,165 @@ else if(e.keyCode == 86  && e.ctrlKey){
     }
 
 })();
+// ==UserScript==
+// @name         Draggable Rainbow PLAY Button
+// @namespace    http://tampermonkey.net/
+// @version      1.1
+// @description  Rainbow animated draggable PLAY button
+// @match        *://tranhdau.net/*
+// @grant        none
+// ==/UserScript==
+
+(function () {
+    'use strict';
+
+    function waitForPlayButton() {
+        const btn = [...document.querySelectorAll("button, div")]
+            .find(el => el.innerText?.trim().toUpperCase() === "PLAY");
+
+        if (!btn) {
+            setTimeout(waitForPlayButton, 500);
+            return;
+        }
+
+        // ===== STYLE CƠ BẢN =====
+        Object.assign(btn.style, {
+            position: "fixed",
+            zIndex: "999999",
+            color: "#fff",
+            fontWeight: "bold",
+            fontSize: "20px",
+            padding: "14px 28px",
+            borderRadius: "16px",
+            cursor: "grab",
+            backgroundSize: "400% 400%",
+            boxShadow: "0 0 25px rgba(255,255,255,0.8)",
+            transition: "transform 0.2s"
+        });
+
+        // ===== RAINBOW ANIMATION =====
+        btn.style.background =
+            "linear-gradient(270deg, red, orange, yellow, lime, cyan, blue, violet, red)";
+
+        let hue = 0;
+        setInterval(() => {
+            hue = (hue + 2) % 360;
+            btn.style.filter = `hue-rotate(${hue}deg)`;
+            btn.style.boxShadow = `0 0 30px hsl(${hue}, 100%, 60%)`;
+        }, 30);
+
+        // Hover
+        btn.addEventListener("mouseenter", () => {
+            btn.style.transform = "scale(1.1)";
+        });
+        btn.addEventListener("mouseleave", () => {
+            btn.style.transform = "scale(1)";
+        });
+
+        // ===== DRAG =====
+        let dragging = false;
+        let offsetX = 0, offsetY = 0;
+
+        btn.addEventListener("mousedown", e => {
+            dragging = true;
+            btn.style.cursor = "grabbing";
+            offsetX = e.clientX - btn.offsetLeft;
+            offsetY = e.clientY - btn.offsetTop;
+        });
+
+        document.addEventListener("mousemove", e => {
+            if (!dragging) return;
+            btn.style.left = (e.clientX - offsetX) + "px";
+            btn.style.top = (e.clientY - offsetY) + "px";
+            btn.style.right = "auto";
+            btn.style.bottom = "auto";
+        });
+
+        document.addEventListener("mouseup", () => {
+            if (!dragging) return;
+            dragging = false;
+            btn.style.cursor = "grab";
+
+            localStorage.setItem("playBtnPos", JSON.stringify({
+                left: btn.style.left,
+                top: btn.style.top
+            }));
+        });
+
+        // ===== LOAD VỊ TRÍ =====
+        const saved = localStorage.getItem("playBtnPos");
+        if (saved) {
+            const pos = JSON.parse(saved);
+            btn.style.left = pos.left;
+            btn.style.top = pos.top;
+        } else {
+            btn.style.left = "50%";
+            btn.style.top = "60%";
+            btn.style.transform = "translate(-50%, -50%)";
+        }
+
+        console.log("🌈 Rainbow PLAY button activated");
+    }
+
+    waitForPlayButton();
+})();
+// ==UserScript==
+// @name         Fix Kho Skin Only - Luu Nhien
+// @namespace    http://tampermonkey.net/
+// @version      1.1
+// @description  Only improve Kho Skin UI, no screen scaling
+// @match        *://tranhdau.net/*
+// @grant        none
+// ==/UserScript==
+
+(function () {
+    'use strict';
+
+    function findKhoSkin() {
+        return [...document.querySelectorAll("div,button")]
+            .find(el => el.innerText?.trim() === "KHO SKIN");
+    }
+
+    function styleKhoSkin(el) {
+        Object.assign(el.style, {
+            transform: "scale(1.25)",           // CHỈ TO KHO SKIN
+            transformOrigin: "center",
+            zIndex: "9999",
+
+            padding: "10px 18px",
+            borderRadius: "14px",
+
+            fontSize: "16px",
+            fontWeight: "700",
+            letterSpacing: "1px",
+
+            background: "linear-gradient(135deg, #1f2933, #111827)",
+            color: "#ffffff",
+
+            border: "2px solid #00ffff",
+            boxShadow: "0 0 10px rgba(0,255,255,0.6)",
+
+            transition: "0.2s ease",
+            cursor: "pointer"
+        });
+
+        // hover nhẹ thôi
+        el.onmouseenter = () => {
+            el.style.boxShadow = "0 0 16px rgba(0,255,255,0.9)";
+        };
+        el.onmouseleave = () => {
+            el.style.boxShadow = "0 0 10px rgba(0,255,255,0.6)";
+        };
+    }
+
+    const timer = setInterval(() => {
+        const kho = findKhoSkin();
+        if (kho) {
+            clearInterval(timer);
+            styleKhoSkin(kho);
+        }
+    }, 400);
+})();
 var script = document.createElement('script');
 (document.body || document.head || document.documentElement).appendChild(script);
 
@@ -367,8 +526,8 @@ var script = document.createElement('script');
         $('.agario-panel').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
         $('.btn-primary').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
         $('.btn-needs-server').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
-       // $('.btn-primary').text('Skin');
-       // $(".btn-play").text('Play');
+        $('.btn-primary').text('Skin');
+        $(".btn-play").text('Play');
 
 
 window.addEventListener('keydown', keydown);
