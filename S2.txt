@@ -199,7 +199,7 @@ else if(e.keyCode == 86  && e.ctrlKey){
     fpsDiv.style.top = '10px';
     fpsDiv.style.right = '10px'; // 👈 Chỉnh sang phải
     fpsDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-    fpsDiv.style.color = '#66CCFF';
+    fpsDiv.style.color = '#00FF00';
     fpsDiv.style.fontFamily = 'monospace';
     fpsDiv.style.padding = '5px 10px';
     fpsDiv.style.zIndex = '9999';
@@ -275,7 +275,7 @@ else if(e.keyCode == 86  && e.ctrlKey){
                 text.includes('no name') ||
                 text.includes('theme') ||
                 text.includes('score') ||
-                text.includes('no chat')
+                text.includes('...')
             ) {
                 label.style.display = 'none';
             }
@@ -612,7 +612,7 @@ function keyup(event) {
 (function() {
 'use strict';
 
-var New_WhiteBackgroundColor = '#000';
+var New_WhiteBackgroundColor = '#002200';
 
 var old_fillRect = CanvasRenderingContext2D.prototype.fillRect;
 CanvasRenderingContext2D.prototype.fillRect = function() {
