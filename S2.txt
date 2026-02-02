@@ -612,7 +612,7 @@ function keyup(event) {
 (function() {
 'use strict';
 
-var New_WhiteBackgroundColor = '#002200';
+var New_WhiteBackgroundColor = '#000';
 
 var old_fillRect = CanvasRenderingContext2D.prototype.fillRect;
 CanvasRenderingContext2D.prototype.fillRect = function() {
@@ -657,3 +657,4 @@ CanvasRenderingContext2D.prototype.fillText = function() {
 })();
 
 skins('202509230655500854860001758603350')
+
