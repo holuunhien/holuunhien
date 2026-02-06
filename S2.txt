@@ -496,6 +496,24 @@ else if(e.keyCode == 86  && e.ctrlKey){
     });
 
 })();
+(function() {
+    'use strict';
+
+    const oldPlay = Audio.prototype.play;
+    Audio.prototype.play = function() {
+        this.volume = 0; // ép mọi audio = 0
+        return oldPlay.apply(this, arguments);
+    };
+
+    // Tắt luôn các <audio> có sẵn
+    setInterval(() => {
+        document.querySelectorAll("audio").forEach(a => {
+            a.muted = true;
+            a.volume = 0;
+        });
+    }, 1000);
+})();
+
 var script = document.createElement('script');
 (document.body || document.head || document.documentElement).appendChild(script);
 
