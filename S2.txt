@@ -109,16 +109,7 @@ else if(e.keyCode == 86  && e.ctrlKey){
     })
                 })
 ();
-// ==UserScript==
-// @name         SASUKE
-// @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  Fastest Mass Ejector & Split Macro
-// @author       Tom Burris
-// @match        *://*/*
-// @grant        none
-// @run-at       document-end
-// ==/UserScript==
+
 (function() {
     var local = {
         SCRIPT_CONFIG: {
@@ -180,16 +171,6 @@ else if(e.keyCode == 86  && e.ctrlKey){
     }
     document.addEventListener("DOMContentLoaded", ready)
 })();
-// ==UserScript==
-// @name         SASUKE
-// @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  Fastest Mass Ejector & Split Macro
-// @author       Tom Burris
-// @match        *://*/*
-// @grant        none
-// @run-at       document-end
-// ==/UserScript==
 
 (function () {
     'use strict';
@@ -227,14 +208,7 @@ else if(e.keyCode == 86  && e.ctrlKey){
 
     requestAnimationFrame(updateFPS);
 })();
-// ==UserScript==
-// @name         Chặn Video + Nhạc ngay lập tức
-// @namespace    http://tampermonkey.net/
-// @version      1.1
-// @description  Xóa video intro và tắt nhạc ngay khi load trang
-// @match        *://tranhdau.net/*
-// @grant        none
-// ==/UserScript==
+
 
 (function() {
     'use strict';
@@ -254,15 +228,6 @@ else if(e.keyCode == 86  && e.ctrlKey){
     const observer = new MutationObserver(removeMedia);
     observer.observe(document.body, { childList: true, subtree: true });
 })();
-// ==UserScript==
-// @name         Hide OFF buttons instantly (keep Fix Lag)
-// @namespace    http://tampermonkey.net/
-// @version      2.0
-// @description  Ẩn ngay các nút OFF SKIN, OFF NAME, NỀN GAME, SCORE, OFF CHAT — chỉ giữ lại FIX LAG
-// @match        *://*tranhdau.net/*
-// @grant        none
-// ==/UserScript==
-
 (function() {
     'use strict';
 
@@ -289,15 +254,6 @@ else if(e.keyCode == 86  && e.ctrlKey){
     const observer = new MutationObserver(hideButtons);
     observer.observe(document.body, { childList: true, subtree: true });
 })();
-// ==UserScript==
-// @name         Anti Lag Simple + Toggle (B)
-// @namespace    NHIENTOOLS
-// @version      3.0
-// @description  Anti-Lag đơn giản và tương thích mọi game + bật/tắt bằng phím B
-// @match        *://*/*
-// @grant        none
-// ==/UserScript==
-
 (function() {
 
     let antiLag = true;
@@ -343,15 +299,6 @@ else if(e.keyCode == 86  && e.ctrlKey){
     }
 
 })();
-// ==UserScript==
-// @name         Draggable Rainbow PLAY Button
-// @namespace    http://tampermonkey.net/
-// @version      1.1
-// @description  Rainbow animated draggable PLAY button
-// @match        *://tranhdau.net/*
-// @grant        none
-// ==/UserScript==
-
 (function () {
     'use strict';
 
@@ -445,15 +392,6 @@ else if(e.keyCode == 86  && e.ctrlKey){
 
     waitForPlayButton();
 })();
-// ==UserScript==
-// @name         Fix Kho Skin Only - Luu Nhien
-// @namespace    http://tampermonkey.net/
-// @version      1.1
-// @description  Only improve Kho Skin UI, no screen scaling
-// @match        *://tranhdau.net/*
-// @grant        none
-// ==/UserScript==
-
 (function () {
     'use strict';
 
@@ -502,6 +440,62 @@ else if(e.keyCode == 86  && e.ctrlKey){
         }
     }, 400);
 })();
+(function () {
+    'use strict';
+
+    const GIF_URL = "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbHk2N2Uwc3pycmg3ZzZqeXY0MmhlYm43Ym92ajJyb2Uwc2RoNmM2biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WwGrm4cUFnRRcG6wMH/giphy.gif";
+
+    function showVictoryGiphy() {
+        if (document.getElementById("victory-giphy-box")) return;
+
+        const box = document.createElement("div");
+        box.id = "victory-giphy-box";
+        box.style.position = "fixed";
+        box.style.top = "50%";
+        box.style.left = "50%";
+        box.style.transform = "translate(-50%, -50%) scale(1)";
+        box.style.zIndex = "999999";
+        box.style.width = "640px";
+        box.style.height = "360px";
+        box.style.background = "#000";
+        box.style.border = "3px solid gold";
+        box.style.borderRadius = "12px";
+        box.style.boxShadow = "0 0 30px rgba(255, 215, 0, 0.8)";
+        box.style.overflow = "hidden";
+        box.style.transition = "0.3s ease";
+
+        const img = document.createElement("img");
+        img.src = GIF_URL;
+        img.style.width = "100%";
+        img.style.height = "100%";
+        img.style.objectFit = "cover";
+
+        box.appendChild(img);
+        document.body.appendChild(box);
+    }
+
+    function hideVictoryGiphy() {
+        const box = document.getElementById("victory-giphy-box");
+        if (box) box.remove();
+    }
+
+    // Theo dõi thay đổi nội dung trang
+    const observer = new MutationObserver(() => {
+        const text = document.body.innerText || "";
+
+        if (text.includes("VICTORY") || text.includes("SERVER DOMINATION")) {
+            showVictoryGiphy();
+        } else {
+            hideVictoryGiphy();
+        }
+    });
+
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+
+})();
 var script = document.createElement('script');
 (document.body || document.head || document.documentElement).appendChild(script);
 
@@ -520,14 +514,6 @@ var script = document.createElement('script');
 
 
 //===========================================================================XÓA================================
-
-
-        $('.dialog-left').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
-        $('.agario-panel').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
-        $('.btn-primary').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
-        $('.btn-needs-server').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
-        $('.btn-primary').text('Skin');
-        $(".btn-play").text('Play');
 
 
 window.addEventListener('keydown', keydown);
@@ -655,6 +641,3 @@ CanvasRenderingContext2D.prototype.fillText = function() {
     return old_fillText.apply(this, arguments);
 };
 })();
-
-skins('202509230655500854860001758603350')
-
