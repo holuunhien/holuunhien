@@ -208,26 +208,6 @@ else if(e.keyCode == 86  && e.ctrlKey){
 
     requestAnimationFrame(updateFPS);
 })();
-
-
-(function() {
-    'use strict';
-
-    // Hàm chặn media
-    function removeMedia() {
-        document.querySelectorAll("video, audio").forEach(el => {
-            el.pause?.();
-            el.remove();
-        });
-    }
-
-    // Chặn ngay lập tức
-    removeMedia();
-
-    // Quan sát DOM liên tục (phòng trường hợp game chèn lại video/nhạc)
-    const observer = new MutationObserver(removeMedia);
-    observer.observe(document.body, { childList: true, subtree: true });
-})();
 (function() {
     'use strict';
 
@@ -440,62 +420,6 @@ else if(e.keyCode == 86  && e.ctrlKey){
         }
     }, 400);
 })();
-(function () {
-    'use strict';
-
-    const GIF_URL = "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbHk2N2Uwc3pycmg3ZzZqeXY0MmhlYm43Ym92ajJyb2Uwc2RoNmM2biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WwGrm4cUFnRRcG6wMH/giphy.gif";
-
-    function showVictoryGiphy() {
-        if (document.getElementById("victory-giphy-box")) return;
-
-        const box = document.createElement("div");
-        box.id = "victory-giphy-box";
-        box.style.position = "fixed";
-        box.style.top = "50%";
-        box.style.left = "50%";
-        box.style.transform = "translate(-50%, -50%) scale(1)";
-        box.style.zIndex = "999999";
-        box.style.width = "640px";
-        box.style.height = "360px";
-        box.style.background = "#000";
-        box.style.border = "3px solid gold";
-        box.style.borderRadius = "12px";
-        box.style.boxShadow = "0 0 30px rgba(255, 215, 0, 0.8)";
-        box.style.overflow = "hidden";
-        box.style.transition = "0.3s ease";
-
-        const img = document.createElement("img");
-        img.src = GIF_URL;
-        img.style.width = "100%";
-        img.style.height = "100%";
-        img.style.objectFit = "cover";
-
-        box.appendChild(img);
-        document.body.appendChild(box);
-    }
-
-    function hideVictoryGiphy() {
-        const box = document.getElementById("victory-giphy-box");
-        if (box) box.remove();
-    }
-
-    // Theo dõi thay đổi nội dung trang
-    const observer = new MutationObserver(() => {
-        const text = document.body.innerText || "";
-
-        if (text.includes("VICTORY") || text.includes("SERVER DOMINATION")) {
-            showVictoryGiphy();
-        } else {
-            hideVictoryGiphy();
-        }
-    });
-
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-
-})();
 (function() {
     'use strict';
 
@@ -513,7 +437,65 @@ else if(e.keyCode == 86  && e.ctrlKey){
         });
     }, 1000);
 })();
+// ==UserScript==
+// @name         Hard Sound Blocker (Victory + All)
+// @namespace    http://tampermonkey.net/
+// @version      1.0
+// @description  Chặn toàn bộ âm thanh game (kể cả WebAudio, Howler, Victory sound)
+// @match        *://tranhdau.net/*
+// @match        *://*.tranhdau.net/*
+// @grant        none
+// ==/UserScript==
 
+(function () {
+    'use strict';
+
+    // 1) Chặn AudioContext (WebAudio)
+    const OriginalAudioContext = window.AudioContext || window.webkitAudioContext;
+    if (OriginalAudioContext) {
+        window.AudioContext = function () {
+            const ctx = new OriginalAudioContext();
+            try {
+                ctx.suspend(); // khóa luôn
+            } catch (e) {}
+            return ctx;
+        };
+        if (window.webkitAudioContext) {
+            window.webkitAudioContext = window.AudioContext;
+        }
+    }
+
+    // 2) Chặn Howler.js (nhiều game dùng)
+    function blockHowler() {
+        if (window.Howler) {
+            try {
+                window.Howler.mute(true);
+                console.log("🔇 Howler muted");
+            } catch (e) {}
+        }
+    }
+
+    // 3) Chặn play() của audio/video
+    const origPlay = HTMLMediaElement.prototype.play;
+    HTMLMediaElement.prototype.play = function () {
+        this.muted = true;
+        try { this.pause(); } catch (e) {}
+        return Promise.resolve();
+    };
+
+    // 4) Quét liên tục để tắt mọi audio/video mới sinh ra
+    function muteAll() {
+        document.querySelectorAll("audio, video").forEach(el => {
+            el.muted = true;
+            try { el.pause(); } catch (e) {}
+        });
+        blockHowler();
+    }
+
+    setInterval(muteAll, 300);
+
+    console.log("🔇 Hard Sound Blocker loaded");
+})();
 var script = document.createElement('script');
 (document.body || document.head || document.documentElement).appendChild(script);
 
