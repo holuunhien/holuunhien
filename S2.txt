@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         SCRIPT LUU NHIEN
+// @name         Luunhien
 // @namespace    http://tampermonkey.net/
 // @version      0.5
 // @description  Fastest Mass Ejector & Split Macro
@@ -8,108 +8,6 @@
 // @grant        none
 // @run-at       document-end
 // ==/UserScript==
-
-(function(){
-    $("body").dblclick(function(){
-        if($("#doubleclick_d").is(":checked"))
-            keyPress(88);
-    });
-    $("head").append("<style>.emberstyle a, #nick, #ip_newserver{border-radius:5px;} #fb_id:hover{text-decoration:none;}</style>");
-    newIns();
-    var interval_gold, interval_bomb, key = false, key2 = false, att=20, X=0, Y=0, k=0, fg=false;
-
-    function autoSpawn()
-    {
-        setInterval(function(){
-            if($("#overlays").is(':visible') && $("#autorespawnok").is(":checked"))
-                $('.btn-play')[0].click();
-        },1000)
-    }
-
-    function newIns()
-    {
-
-    }
-    $(document).on('keydown',function(e){
-        // Doublesplit -> key2
-        if (e.keyCode == 50)
-        {
-        }
-
-        else if(e.keyCode == 80 && !$("#nick, #ip_newserver, #chat_textbox").is(":focus"))
-        {
-            $('.btn-play-guest')[0].click();
-            $("#overlays").css("display","none");
-        }
-
-
-        else if(e.keyCode == 82)
-
-        {
-        }
-        //=============================== mo =====================================
-        else if(e.keyCode == 90  && e.ctrlKey){
-			$('#close_chatfull').click(function(){$(this).fadeOut("fast");});
-            setSkins(true); //Skins: false
-            $('#screenshot, #account_button, .controls, #klan, #level, #stats, .tosBox').remove();
-            $("#gamemode").replaceWith(
-                ' </div></div>');
-            $("#bilgilerModal").html('<div class="modal-dialog modal-sm"><div class="modal-content"><div class="modal-header">Emoji<button type="button" class="close" data-dismiss="modal">&times;</button></div><div class="modal-body"><h3>'+
-                                     '<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;</h3></div></div></div>');
-
-            $("#chat_textbox").attr("maxlength","70");
-            $("#loginModal div.modal-content").replaceWith('<div class="modal-header">'+
-                                                           '<button type="button" id="close_chatfull" class="close" data-dismiss="modal">&times;</button><h1 style="text-align:center;color:#FF0000;" class="modal-title">Hmmm..<br> Chat is full!</h1></div>');
-        }
-        //=============================== tat =====================================
-        else if(e.keyCode == 88  && e.ctrlKey){
-			$('#close_chatfull').click(function(){$(this).fadeOut("fast");});
-            setSkins(false); //Skins: false
-            $('#screenshot, #account_button, .controls, #klan, #level, #stats, .tosBox').remove();
-            $("#gamemode").replaceWith(
-                ' </div></div>');
-            $("#bilgilerModal").html('<div class="modal-dialog modal-sm"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div><div class="modal-body"><h3>'+
-                                     '<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;</h3></div></div></div>');
-            $("#chat_textbox").attr("maxlength","70");
-            $("#loginModal div.modal-content").replaceWith('<div class="modal-header">'+
-                                                           '<button type="button" id="close_chatfull" class="close" data-dismiss="modal">&times;</button><h1 style="text-align:center;color:#FF0000;" class="modal-title">Hmmm..<br> Chat is full!</h1></div>');
-
-
-        }
-            //=============================== moAcid =====================================
-        else if(e.keyCode == 67  && e.ctrlKey){
-			$('#close_chatfull').click(function(){$(this).fadeOut("fast");});
-            setNames(true);//Acid:true
-            $('#screenshot, #account_button, .controls, #klan, #level, #stats, .tosBox').remove();
-            $("#gamemode").replaceWith(
-                ' </div></div>');
-            $("#bilgilerModal").html('<div class="modal-dialog modal-sm"><div class="modal-content"><div class="modal-header">Emoji<button type="button" class="close" data-dismiss="modal">&times;</button></div><div class="modal-body"><h3>'+
-                                     '<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;</h3></div></div></div>');
-
-            $("#chat_textbox").attr("maxlength","70");
-            $("#loginModal div.modal-content").replaceWith('<div class="modal-header">'+
-                                                           '<button type="button" id="close_chatfull" class="close" data-dismiss="modal">&times;</button><h1 style="text-align:center;color:#FF0000;" class="modal-title">Hmmm..<br> Chat is full!</h1></div>');
-        }
-                    //=============================== TatAcide =====================================
-else if(e.keyCode == 86  && e.ctrlKey){
-			$('#close_chatfull').click(function(){$(this).fadeOut("fast");});
-            setNames(false);//Acid: false
-            $('#screenshot, #account_button, .controls, #klan, #level, #stats, .tosBox').remove();
-            $("#gamemode").replaceWith(
-                ' </div></div>');
-            $("#bilgilerModal").html('<div class="modal-dialog modal-sm"><div class="modal-content"><div class="modal-header">Emoji<button type="button" class="close" data-dismiss="modal">&times;</button></div><div class="modal-body"><h3>'+
-                                     '<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;</h3></div></div></div>');
-
-            $("#chat_textbox").attr("maxlength","70");
-            $("#loginModal div.modal-content").replaceWith('<div class="modal-header">'+
-                                                           '<button type="button" id="close_chatfull" class="close" data-dismiss="modal">&times;</button><h1 style="text-align:center;color:#FF0000;" class="modal-title">Hmmm..<br> Chat is full!</h1></div>');
-        }
-                    //=============================== tat =====================================
-
-    })
-                })
-();
-
 (function() {
     var local = {
         SCRIPT_CONFIG: {
@@ -171,7 +69,6 @@ else if(e.keyCode == 86  && e.ctrlKey){
     }
     document.addEventListener("DOMContentLoaded", ready)
 })();
-
 (function () {
     'use strict';
 
@@ -220,7 +117,7 @@ else if(e.keyCode == 86  && e.ctrlKey){
                 text.includes('no name') ||
                 text.includes('theme') ||
                 text.includes('score') ||
-                text.includes('...')
+                text.includes('fix lag')
             ) {
                 label.style.display = 'none';
             }
@@ -372,54 +269,6 @@ else if(e.keyCode == 86  && e.ctrlKey){
 
     waitForPlayButton();
 })();
-(function () {
-    'use strict';
-
-    function findKhoSkin() {
-        return [...document.querySelectorAll("div,button")]
-            .find(el => el.innerText?.trim() === "KHO SKIN");
-    }
-
-    function styleKhoSkin(el) {
-        Object.assign(el.style, {
-            transform: "scale(1.25)",           // CHỈ TO KHO SKIN
-            transformOrigin: "center",
-            zIndex: "9999",
-
-            padding: "10px 18px",
-            borderRadius: "14px",
-
-            fontSize: "16px",
-            fontWeight: "700",
-            letterSpacing: "1px",
-
-            background: "linear-gradient(135deg, #1f2933, #111827)",
-            color: "#ffffff",
-
-            border: "2px solid #00ffff",
-            boxShadow: "0 0 10px rgba(0,255,255,0.6)",
-
-            transition: "0.2s ease",
-            cursor: "pointer"
-        });
-
-        // hover nhẹ thôi
-        el.onmouseenter = () => {
-            el.style.boxShadow = "0 0 16px rgba(0,255,255,0.9)";
-        };
-        el.onmouseleave = () => {
-            el.style.boxShadow = "0 0 10px rgba(0,255,255,0.6)";
-        };
-    }
-
-    const timer = setInterval(() => {
-        const kho = findKhoSkin();
-        if (kho) {
-            clearInterval(timer);
-            styleKhoSkin(kho);
-        }
-    }, 400);
-})();
 (function() {
     'use strict';
 
@@ -437,16 +286,6 @@ else if(e.keyCode == 86  && e.ctrlKey){
         });
     }, 1000);
 })();
-// ==UserScript==
-// @name         Hard Sound Blocker (Victory + All)
-// @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  Chặn toàn bộ âm thanh game (kể cả WebAudio, Howler, Victory sound)
-// @match        *://tranhdau.net/*
-// @match        *://*.tranhdau.net/*
-// @grant        none
-// ==/UserScript==
-
 (function () {
     'use strict';
 
@@ -496,6 +335,197 @@ else if(e.keyCode == 86  && e.ctrlKey){
 
     console.log("🔇 Hard Sound Blocker loaded");
 })();
+(function () {
+'use strict';
+
+// =============================
+// SETTINGS
+// =============================
+const FEED_DELAY = 20; // 16-22 là nhanh nhất
+
+let feedW = false;
+let feedR = false;
+let feedMouse = false;
+let lastFeed = 0;
+
+
+// =============================
+// FUNCTION GỬI MASS
+// =============================
+function sendFeed() {
+
+    // giả lập phím W (an toàn nhất cho client)
+    document.dispatchEvent(
+        new KeyboardEvent("keydown", {
+            key: "w",
+            code: "KeyW",
+            bubbles: true
+        })
+    );
+}
+
+
+// =============================
+// FAST FEED CONTROL
+// =============================
+function fastFeed() {
+
+    const now = Date.now();
+
+    if (now - lastFeed > FEED_DELAY) {
+        sendFeed();
+        lastFeed = now;
+    }
+}
+
+
+// =============================
+// KEYBOARD
+// =============================
+document.addEventListener("keydown", e => {
+    if (e.code === "KeyW") feedW = true;
+    if (e.code === "KeyR") feedR = true;
+});
+
+document.addEventListener("keyup", e => {
+    if (e.code === "KeyW") feedW = false;
+    if (e.code === "KeyR") feedR = false;
+});
+
+
+// =============================
+// RIGHT CLICK FEED
+// =============================
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+document.addEventListener("mousedown", e => {
+    if (e.button === 2) feedMouse = true;
+});
+
+document.addEventListener("mouseup", e => {
+    if (e.button === 2) feedMouse = false;
+});
+
+
+// =============================
+// MAIN LOOP (SIÊU MƯỢT)
+// =============================
+function loop() {
+
+    if (feedW || feedR || feedMouse) {
+        fastFeed();
+    }
+
+    requestAnimationFrame(loop);
+}
+
+loop();
+
+})();
+(function(){
+    $("body").dblclick(function(){
+        if($("#doubleclick_d").is(":checked"))
+            keyPress(88);
+    });
+    $("head").append("<style>.emberstyle a, #nick, #ip_newserver{border-radius:5px;} #fb_id:hover{text-decoration:none;}</style>");
+    newIns();
+    var interval_gold, interval_bomb, key = false, key2 = false, att=20, X=0, Y=0, k=0, fg=false;
+
+    function autoSpawn()
+    {
+        setInterval(function(){
+            if($("#overlays").is(':visible') && $("#autorespawnok").is(":checked"))
+                $('.btn-play')[0].click();
+        },1000)
+    }
+
+    function newIns()
+    {
+
+    }
+    $(document).on('keydown',function(e){
+        // Doublesplit -> key2
+        if (e.keyCode == 50)
+        {
+        }
+
+        else if(e.keyCode == 80 && !$("#nick, #ip_newserver, #chat_textbox").is(":focus"))
+        {
+            $('.btn-play-guest')[0].click();
+            $("#overlays").css("display","none");
+        }
+
+
+        else if(e.keyCode == 82)
+
+        {
+        }
+        //=============================== mo =====================================
+        else if(e.keyCode == 90  && e.ctrlKey){
+			$('#close_chatfull').click(function(){$(this).fadeOut("fast");});
+            setSkins(true); //Skins: false
+            $('#screenshot, #account_button, .controls, #klan, #level, #stats, .tosBox').remove();
+            $("#gamemode").replaceWith(
+                ' </div></div>');
+            $("#bilgilerModal").html('<div class="modal-dialog modal-sm"><div class="modal-content"><div class="modal-header">Emoji<button type="button" class="close" data-dismiss="modal">&times;</button></div><div class="modal-body"><h3>'+
+                                     '<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;</h3></div></div></div>');
+
+            $("#chat_textbox").attr("maxlength","70");
+            $("#loginModal div.modal-content").replaceWith('<div class="modal-header">'+
+                                                           '<button type="button" id="close_chatfull" class="close" data-dismiss="modal">&times;</button><h1 style="text-align:center;color:#FF0000;" class="modal-title">Hmmm..<br> Chat is full!</h1></div>');
+        }
+
+        //=============================== tat =====================================
+        else if(e.keyCode == 88  && e.ctrlKey){
+			$('#close_chatfull').click(function(){$(this).fadeOut("fast");});
+            setSkins(false); //Skins: false
+            $('#close_chatfull').click(function(){$(this).fadeOut("fast");});
+            $('#screenshot, #account_button, .controls, #klan, #level, #stats, .tosBox').remove();
+            $("#gamemode").replaceWith(
+                ' </div></div>');
+            $("#bilgilerModal").html('<div class="modal-dialog modal-sm"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div><div class="modal-body"><h3>'+
+                                     '<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;</h3></div></div></div>');
+            $("#chat_textbox").attr("maxlength","70");
+            $("#loginModal div.modal-content").replaceWith('<div class="modal-header">'+
+                                                           '<button type="button" id="close_chatfull" class="close" data-dismiss="modal">&times;</button><h1 style="text-align:center;color:#FF0000;" class="modal-title">Hmmm..<br> Chat is full!</h1></div>');
+
+
+        }
+
+            //=============================== mo =====================================
+        else if(e.keyCode == 67  && e.ctrlKey){
+			$('#close_chatfull').click(function(){$(this).fadeOut("fast");});
+            (true);//Acid:true
+            $('#screenshot, #account_button, .controls, #klan, #level, #stats, .tosBox').remove();
+            $("#gamemode").replaceWith(
+                ' </div></div>');
+            $("#bilgilerModal").html('<div class="modal-dialog modal-sm"><div class="modal-content"><div class="modal-header">Emoji<button type="button" class="close" data-dismiss="modal">&times;</button></div><div class="modal-body"><h3>'+
+                                     '<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;</h3></div></div></div>');
+
+            $("#chat_textbox").attr("maxlength","70");
+            $("#loginModal div.modal-content").replaceWith('<div class="modal-header">'+
+                                                           '<button type="button" id="close_chatfull" class="close" data-dismiss="modal">&times;</button><h1 style="text-align:center;color:#FF0000;" class="modal-title">Hmmm..<br> Chat is full!</h1></div>');
+        }
+                    //=============================== TatAcide =====================================
+else if(e.keyCode == 86  && e.ctrlKey){
+			$('#close_chatfull').click(function(){$(this).fadeOut("fast");});
+            (false);//Acid: false
+            $('#screenshot, #account_button, .controls, #klan, #level, #stats, .tosBox').remove();
+            $("#gamemode").replaceWith(
+                ' </div></div>');
+            $("#bilgilerModal").html('<div class="modal-dialog modal-sm"><div class="modal-content"><div class="modal-header">Emoji<button type="button" class="close" data-dismiss="modal">&times;</button></div><div class="modal-body"><h3>'+
+                                     '<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;<button></button>&nbsp;</h3></div></div></div>');
+
+            $("#chat_textbox").attr("maxlength","70");
+            $("#loginModal div.modal-content").replaceWith('<div class="modal-header">'+
+                                                           '<button type="button" id="close_chatfull" class="close" data-dismiss="modal">&times;</button><h1 style="text-align:center;color:#FF0000;" class="modal-title">Hmmm..<br> Chat is full!</h1></div>');
+        }
+                    //=============================== tat =====================================
+
+    })
+                })
+();
+
 var script = document.createElement('script');
 (document.body || document.head || document.documentElement).appendChild(script);
 
@@ -513,7 +543,18 @@ var script = document.createElement('script');
         $("#gamemode").remove();
 
 
+
+
+
 //===========================================================================XÓA================================
+        $("#overlays").append ('<img src="https://sf-static.upanhlaylink.com/img/image_202602261b0eb2a3f34c781575d6fe123305c7c8.jpg" alt="2f6412f4ddea74299346daeb746754ce.jpg" style="width:1920px;height:2000x;lengthwise: 210px;">');
+        $(".dialog-left").append ('<marquee   width="100%" height="100%" style=""><font color=Blue>Welcome To  Ðã Ð?n Tranhdau.net</marquee>')
+        $('.dialog-left').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
+        $('.agario-panel').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
+        $('.btn-primary').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
+        $('.btn-needs-server').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
+        $('.btn-primary').text('Skin');
+        $(".btn-play").text('Play');
 
 
 window.addEventListener('keydown', keydown);
@@ -592,13 +633,29 @@ function keyup(event) {
         e.preventDefault();
     });
 }());
+(function() {
+    var amount = 4;
+    var duration = 50;
 
+    var overwriting = function(evt) {
+        if (evt.keyCode === 83) { // Change 83[S] To Whichever Keycode You Want To Change The Triple Split HotKey
+            for (var i = 0; i < amount; ++i) {
+                setTimeout(function() {
+                    window.onkeydown({keyCode: 32}); // 32 - Space Bar
+                    window.onkeyup({keyCode: 32});
+                }, i * duration);
+            }
+        }
+    };
+
+    window.addEventListener('keydown', overwriting);
+})();
 
 
 (function() {
 'use strict';
 
-var New_WhiteBackgroundColor = '#000';
+var New_WhiteBackgroundColor = '#000000';
 
 var old_fillRect = CanvasRenderingContext2D.prototype.fillRect;
 CanvasRenderingContext2D.prototype.fillRect = function() {
@@ -637,7 +694,84 @@ function calculateRemain(text) {
 var old_fillText = CanvasRenderingContext2D.prototype.fillText;
 CanvasRenderingContext2D.prototype.fillText = function() {
     if (arguments[0]=='Leaderboard')
-        arguments[0] = '    IL TOOL ❥'
+        arguments[0] = ' '
     return old_fillText.apply(this, arguments);
 };
 })();
+
+function load() {
+    if (document.getElementById("overlays").style.display!="none") {
+        document.getElementById("settings").style.display = "block";
+    } else {
+        setTimeout(load, 100);
+    }
+}
+var Libra = document.getElementById('adbg');
+if (Libra) { Libra.parentNode.removeChild(Libra); }
+
+var Libra1 = document.getElementById('adbg');
+if (Libra1) { Libra1.parentNode.removeChild(Libra1); }
+
+var Libra2 = document.getElementById('adbg');
+if (Libra2) { Libra2.parentNode.removeChild(Libra2); }
+
+
+
+
+
+class mouseWheelZoom {
+  constructor() {
+    this.mOX = 0;
+    this.mOY = 0;
+    this.zoomValue = 0;
+    this.cellX = 0;
+    this.cellY = 0;
+
+
+  }
+  createBuffer(length) {
+    return new DataView(new ArrayBuffer(length));
+  }
+  sendBuffer(buf) {
+    if(this.ws && this.ws.readyState == 1) this.ws.send(buf);
+  }
+
+
+
+  sendMousePacket() {
+    let buffer = this.createBuffer(29);
+    buffer.setUint8(0, 4);
+    buffer.setFloat64(1, ((window.clientXXX - window.innerWidth / 2) / this.zoomValue) + this.cellX, true);
+    buffer.setFloat64(9, ((window.clientYYY - window.innerHeight / 2) / this.zoomValue) + this.cellY, true);
+    buffer.setFloat64(17, 0, true);
+    buffer.setUint32(25, true);
+    this.sendBuffer(buffer);
+  }
+
+}
+
+var observer = new MutationObserver(function(mutations){
+  mutations.forEach(function(mutation) {
+    mutation.addedNodes.forEach(function(node) {
+      if (/agario\.core\.js/i.test(node.src)){
+        observer.disconnect();
+        node.parentNode.removeChild(node);
+        var request = new XMLHttpRequest();
+        request.open("get", node.src, true);
+        request.send();
+        request.onload = function(){
+          var coretext = this.responseText;
+          var newscript = document.createElement("script");
+          newscript.type = "text/javascript";
+          newscript.async = true;
+          window._op = new mouseWheelZoom();
+          newscript.textContent = replaceCore(coretext);
+          document.body.appendChild(newscript);
+        };
+      }
+    });
+  });
+});
+observer.observe(document, {attributes:true, characterData:true, childList:true, subtree:true});
+
+
