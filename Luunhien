@@ -484,7 +484,7 @@ loop();
           ctxProto._fillRect = ctxProto.fillRect;
           ctxProto.fillRect = function (x, y, w, h) {
             if (x === 0 && y === 0 && w === this.canvas.width && h === this.canvas.height)
-              this.fillStyle = '#FFF';
+              this.fillStyle = '#002200';
             return this._fillRect.call(this, x, y, w, h);
           };
           console.log('⚫ Black Screen: ON');
@@ -565,6 +565,36 @@ loop();
 
     console.log('%cHOLUUNHIEN ✅ Split Macros Updated', 'color:lime;font-weight:bold;');
   });
+})();
+(function () {
+'use strict';
+
+function createMiniMapText() {
+
+    if (document.getElementById("luunhien-text")) return;
+
+    const text = document.createElement("div");
+    text.id = "luunhien-text";
+    text.innerText = "Luu Nhien";
+
+    // STYLE chữ nhạt
+    text.style.position = "fixed";
+    text.style.right = "90px";
+    text.style.bottom = "90px";
+    text.style.transform = "translate(50%,50%)";
+    text.style.pointerEvents = "none";
+
+    text.style.color = "rgba(255, 80, 80, 0.45)"; // ⭐ màu đỏ
+    text.style.fontSize = "16px";
+    text.style.fontWeight = "600";
+    text.style.textShadow = "0 0 4px rgba(0,0,0,0.4)";
+    text.style.zIndex = "9999";
+
+    document.body.appendChild(text);
+}
+
+setTimeout(createMiniMapText, 3000);
+
 })();
 (function(){
     $("body").dblclick(function(){
@@ -706,6 +736,7 @@ function mass() {
         setTimeout(mass, Speed);
     }
 }
+
 function keydown(event) {
     switch(event.keyCode){
     // Feed Macro
@@ -737,6 +768,33 @@ function keyup(event) {
         Feed = false;
     }
 }
+
+//Mouse Clicks
+(function() {
+    $("#canvas").bind("mousedown",function(event) {
+        switch(event.which){
+        case 1:
+
+        break;
+        case 2:
+
+        break;
+        case 3:
+            Feed = true;
+            setTimeout(mass, Speed);
+        break;
+        }
+    });
+
+    $("#canvas").bind("mouseup",function(event) {
+        if (event.which == 3) {
+            Feed = false;
+        }
+    });
+    $('#canvas').bind('contextmenu',function(e) {
+        e.preventDefault();
+    });
+}());
 
 //Mouse Clicks
 (function() {
