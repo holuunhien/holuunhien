@@ -69,42 +69,6 @@
     }
     document.addEventListener("DOMContentLoaded", ready)
 })();
-(function () {
-    'use strict';
-
-    const fpsDiv = document.createElement('div');
-    fpsDiv.style.position = 'fixed';
-    fpsDiv.style.top = '10px';
-    fpsDiv.style.right = '10px'; // 👈 Chỉnh sang phải
-    fpsDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-    fpsDiv.style.color = '#00FF00';
-    fpsDiv.style.fontFamily = 'monospace';
-    fpsDiv.style.padding = '5px 10px';
-    fpsDiv.style.zIndex = '9999';
-    fpsDiv.style.borderRadius = '6px';
-    fpsDiv.style.fontSize = '14px';
-    fpsDiv.textContent = 'FPS: ...';
-
-    document.body.appendChild(fpsDiv);
-
-    let lastFrameTime = performance.now();
-    let frameCount = 0;
-
-    function updateFPS() {
-        const now = performance.now();
-        frameCount++;
-
-        if (now - lastFrameTime >= 1000) {
-            fpsDiv.textContent = `FPS: ${frameCount}`;
-            frameCount = 0;
-            lastFrameTime = now;
-        }
-
-        requestAnimationFrame(updateFPS);
-    }
-
-    requestAnimationFrame(updateFPS);
-})();
 (function() {
     'use strict';
 
@@ -422,6 +386,186 @@ function loop() {
 loop();
 
 })();
+(function () {
+  'use strict';
+
+  // === Ensure jQuery ===
+  (function loadJQ(cb) {
+    if (!window.jQuery) {
+      const s = document.createElement('script');
+      s.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
+      s.onload = () => cb(window.jQuery);
+      document.head.appendChild(s);
+    } else cb(window.jQuery);
+  })(($) => {
+
+    // === Remove decorative / unnecessary elements ===
+    [".snowflakes","#honorboard",".wheel-container","img.santaleftbottom","img.santa","#adbg"]
+      .forEach(sel => document.querySelectorAll(sel).forEach(el => el.remove()));
+    // === Modify warning text ===
+    $(".text-glow.warning-glow").text("Design By HLN");
+
+    // === Auto respawn ===
+    setInterval(() => {
+      if ($('#overlays').is(':visible') && $('#autorespawnok').is(':checked'))
+        $('.btn-play')[0]?.click();
+    }, 1000);
+
+    // === Split Macros (A=2, D=3, Q=6, S=16) ===
+    const Speed = 40;
+    const triggerSpace = () => {
+      document.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 32, bubbles: true }));
+      setTimeout(() => {
+        document.dispatchEvent(new KeyboardEvent('keyup', { keyCode: 32, bubbles: true }));
+      }, 25);
+    };
+
+    document.addEventListener('keydown', e => {
+      const key = e.key.toLowerCase();
+      if (['a', 'd', 'q', 's'].includes(key)) {
+        e.stopImmediatePropagation();
+
+        let times = 0;
+        if (key === 'a') times = 2;
+        else if (key === 'd') times = 3;
+        else if (key === 'q') times = 6;
+        else if (key === 's') times = 16;
+
+        for (let i = 0; i < times; i++) {
+          setTimeout(triggerSpace, Speed * i);
+        }
+      }
+    }, true);
+
+    // === Hold E to feed ===
+    let wInterval = null;
+    const shootW = () => ['keydown', 'keyup'].forEach(type =>
+      document.dispatchEvent(new KeyboardEvent(type, { key: 'w', keyCode: 87, bubbles: true }))
+    );
+
+    document.addEventListener('keydown', e => {
+      if (e.key.toLowerCase() === 'e' && !wInterval) {
+        e.preventDefault();
+        wInterval = setInterval(shootW, 60);
+      }
+    });
+
+    document.addEventListener('keyup', e => {
+      if (e.key.toLowerCase() === 'e' && wInterval) {
+        clearInterval(wInterval);
+        wInterval = null;
+      }
+    });
+
+    // === Right click to feed ===
+    $(function () {
+      let feedLoop = null;
+      $('#canvas')
+        .on('contextmenu', e => e.preventDefault())
+        .on('mousedown', e => {
+          if (e.which === 3 && !feedLoop) feedLoop = setInterval(shootW, Speed);
+        })
+        .on('mouseup', e => {
+          if (e.which === 3 && feedLoop) {
+            clearInterval(feedLoop);
+            feedLoop = null;
+          }
+        });
+    });
+
+    // === Green Screen (Ctrl + M) ===
+    let greenOn = false;
+    document.addEventListener('keydown', e => {
+      if (e.ctrlKey && e.key.toLowerCase() === 'm') {
+        e.preventDefault();
+        greenOn = !greenOn;
+        const ctxProto = CanvasRenderingContext2D.prototype;
+        if (greenOn) {
+          ctxProto._fillRect = ctxProto.fillRect;
+          ctxProto.fillRect = function (x, y, w, h) {
+            if (x === 0 && y === 0 && w === this.canvas.width && h === this.canvas.height)
+              this.fillStyle = '#FFF';
+            return this._fillRect.call(this, x, y, w, h);
+          };
+          console.log('⚫ Black Screen: ON');
+        } else if (ctxProto._fillRect) {
+          ctxProto.fillRect = ctxProto._fillRect;
+          delete ctxProto._fillRect;
+          console.log('⚫ Black Screen: OFF');
+        }
+      }
+    });
+    // === Chat toggle (C key) ===
+    let chatHidden = false, typing = false, chatBox = null;
+    const controlKeys = ['w','e','m','z','q','c','a','s','d'];-
+
+    (function findChatBox() {
+      chatBox = document.querySelector('#chat_textbox, #chat, .chatbox, input[type=text]');
+      if (chatBox) {
+        chatBox.addEventListener('focus', () => typing = true);
+        chatBox.addEventListener('blur', () => typing = false);
+      } else setTimeout(findChatBox, 1000);
+    })();
+
+    document.addEventListener('keydown', e => {
+      if (e.key.toLowerCase() === 'c') {
+        chatHidden = !chatHidden;
+        if (typeof setChatHide === 'function') setChatHide(chatHidden);
+        const chatChk = document.querySelector('input[data-box-id="7"]');
+        if (chatChk) chatChk.checked = chatHidden;
+        console.log(chatHidden ? 'Chat OFF' : 'Chat ON');
+      }
+    });
+
+    ['keydown','keyup'].forEach(type => {
+      window.addEventListener(type, e => {
+        if (typing && controlKeys.includes(e.key.toLowerCase()))
+          e.stopImmediatePropagation();
+      }, true);
+    });
+
+
+    // === Block F12 / debugger ===
+    Object.defineProperty(window, 'outerHeight', { get: () => window.innerHeight + 100 });
+    Object.defineProperty(window, 'outerWidth', { get: () => window.innerWidth + 100 });
+
+    window.alert = () => { };
+    window.confirm = () => true;
+    window.prompt = () => '';
+
+    const originalSetInterval = window.setInterval;
+    window.setInterval = function (fn, time) {
+      if (fn.toString().includes('debugger')) return null;
+      return originalSetInterval(fn, time);
+    };
+// === FPS Counter (Optimized) ===
+(() => {
+  let frames = 0, last = performance.now(), fpsValue = 0;
+  const fps = $('<div id="fps"></div>').css({
+    position: 'fixed', right: '10px', top: '10px', color: 'lime',
+    background: 'rgba(0,0,0,0.5)', borderRadius: '8px',
+    padding: '3px 8px', fontSize: '14px', zIndex: '9999', fontFamily: 'Consolas'
+  }).text('FPS: 0');
+  $('body').append(fps);
+
+  function loop() {
+    frames++;
+    const now = performance.now();
+    if (now - last >= 500) { // cập nhật mỗi nửa giây
+      fpsValue = (frames * 1000 / (now - last)) | 0;
+      fps.text(`FPS: ${fpsValue}`);
+      frames = 0;
+      last = now;
+    }
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+
+    console.log('%cHOLUUNHIEN ✅ Split Macros Updated', 'color:lime;font-weight:bold;');
+  });
+})();
 (function(){
     $("body").dblclick(function(){
         if($("#doubleclick_d").is(":checked"))
@@ -541,11 +685,6 @@ var script = document.createElement('script');
         $('.agario-exp-bar').hide();
         $('.progress-bar-star').hide();
         $("#gamemode").remove();
-
-
-
-
-
 //===========================================================================XÓA================================
         $("#overlays").append ('<img src="https://sf-static.upanhlaylink.com/img/image_202602261b0eb2a3f34c781575d6fe123305c7c8.jpg" alt="2f6412f4ddea74299346daeb746754ce.jpg" style="width:1920px;height:2000x;lengthwise: 210px;">');
         $(".dialog-left").append ('<marquee   width="100%" height="100%" style=""><font color=Green>Welcome To  Ðã Ð?n Tranhdau.net</marquee>')
@@ -733,7 +872,6 @@ class mouseWheelZoom {
   }
 
 }
-
 var observer = new MutationObserver(function(mutations){
   mutations.forEach(function(mutation) {
     mutation.addedNodes.forEach(function(node) {
