@@ -114,10 +114,10 @@
             const text = label.textContent.trim().toLowerCase();
             if (
                 text.includes('no skin') ||
-                text.includes('no name') ||
+                text.includes('...') ||
                 text.includes('theme') ||
                 text.includes('score') ||
-                text.includes('fix lag')
+                text.includes('...')
             ) {
                 label.style.display = 'none';
             }
@@ -548,14 +548,7 @@ var script = document.createElement('script');
 
 //===========================================================================XÓA================================
         $("#overlays").append ('<img src="https://sf-static.upanhlaylink.com/img/image_202602261b0eb2a3f34c781575d6fe123305c7c8.jpg" alt="2f6412f4ddea74299346daeb746754ce.jpg" style="width:1920px;height:2000x;lengthwise: 210px;">');
-        $(".dialog-left").append ('<marquee   width="100%" height="100%" style=""><font color=Blue>Welcome To  Ðã Ð?n Tranhdau.net</marquee>')
-        $('.dialog-left').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
-        $('.agario-panel').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
-        $('.btn-primary').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
-        $('.btn-needs-server').css({color: 'rgba(255, 255, 255, 1)', 'background-color': 'rgba(0, 0, 0, 0.5)'})
-        $('.btn-primary').text('Skin');
-        $(".btn-play").text('Play');
-
+        $(".dialog-left").append ('<marquee   width="100%" height="100%" style=""><font color=Green>Welcome To  Ðã Ð?n Tranhdau.net</marquee>')
 
 window.addEventListener('keydown', keydown);
 window.addEventListener('keyup', keyup);
@@ -574,7 +567,6 @@ function mass() {
         setTimeout(mass, Speed);
     }
 }
-
 function keydown(event) {
     switch(event.keyCode){
     // Feed Macro
@@ -650,8 +642,6 @@ function keyup(event) {
 
     window.addEventListener('keydown', overwriting);
 })();
-
-
 (function() {
 'use strict';
 
@@ -714,11 +704,6 @@ if (Libra1) { Libra1.parentNode.removeChild(Libra1); }
 
 var Libra2 = document.getElementById('adbg');
 if (Libra2) { Libra2.parentNode.removeChild(Libra2); }
-
-
-
-
-
 class mouseWheelZoom {
   constructor() {
     this.mOX = 0;
@@ -726,7 +711,6 @@ class mouseWheelZoom {
     this.zoomValue = 0;
     this.cellX = 0;
     this.cellY = 0;
-
 
   }
   createBuffer(length) {
@@ -773,5 +757,3 @@ var observer = new MutationObserver(function(mutations){
   });
 });
 observer.observe(document, {attributes:true, characterData:true, childList:true, subtree:true});
-
-
