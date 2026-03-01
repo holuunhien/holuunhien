@@ -19,7 +19,7 @@
 
             COLOR_1: "#20687C", // you can use color codes, rgba, hsl, rgb or just color names.
             COLOR_2:"#484430", // you can use color codes, rgba, hsl, rgb or just color names.
-            RAINBOW: false, // replace false with true if you want the menu to be rainbow.
+            RAINBOW: true, // replace false with true if you want the menu to be rainbow.
         },
 
         // DO NOT CHANGE ANYTHING BELOW HERE UNLESS YOU KNOW WHAT YOU'RE DOING \\
@@ -78,11 +78,12 @@
             const text = label.textContent.trim().toLowerCase();
             if (
                 text.includes('no skin') ||
-                text.includes('...') ||
+                text.includes('no chat') ||
                 text.includes('theme') ||
                 text.includes('score') ||
-                text.includes('...')
-            ) {
+                text.includes('fix lag') ||
+                text.includes('no name')
+          ) {
                 label.style.display = 'none';
             }
         });
@@ -94,6 +95,30 @@
     // Quan sát thay đổi DOM để ẩn các nút mới xuất hiện
     const observer = new MutationObserver(hideButtons);
     observer.observe(document.body, { childList: true, subtree: true });
+})();
+(function () {
+    'use strict';
+
+    function removeSettingsPanel() {
+
+        const panel = document.querySelector('#settingsPanel');
+
+        if (panel) {
+            panel.style.display = 'none';
+            panel.remove(); // xoá luôn khỏi DOM
+        }
+    }
+
+    // chạy khi load
+    removeSettingsPanel();
+
+    // game reload UI liên tục nên phải canh
+    const observer = new MutationObserver(removeSettingsPanel);
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+
 })();
 (function() {
 
@@ -953,3 +978,5 @@ var observer = new MutationObserver(function(mutations){
   });
 });
 observer.observe(document, {attributes:true, characterData:true, childList:true, subtree:true});
+            setNames(false); //Skins: false
+setSmooth(true)
