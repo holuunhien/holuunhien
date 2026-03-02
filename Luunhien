@@ -624,22 +624,17 @@ setTimeout(createMiniMapText, 3000);
 (function(){
     $("body").dblclick(function(){
         if($("#doubleclick_d").is(":checked"))
-            keyPress(88);
+            keyPress(68);
     });
     $("head").append("<style>.emberstyle a, #nick, #ip_newserver{border-radius:5px;} #fb_id:hover{text-decoration:none;}</style>");
     newIns();
     var interval_gold, interval_bomb, key = false, key2 = false, att=20, X=0, Y=0, k=0, fg=false;
 
-    function autoSpawn()
-    {
-        setInterval(function(){
-            if($("#overlays").is(':visible') && $("#autorespawnok").is(":checked"))
-                $('.btn-play')[0].click();
-        },1000)
-    }
-
-    function newIns()
-    {
+    function newIns(){
+              var skinInput = document.getElementById("skin");
+        if (skinInput) {
+            skinInput.value = ""; // thay id skin o day !
+        }
 
     }
     $(document).on('keydown',function(e){
@@ -650,17 +645,15 @@ setTimeout(createMiniMapText, 3000);
 
         else if(e.keyCode == 80 && !$("#nick, #ip_newserver, #chat_textbox").is(":focus"))
         {
-            $('.btn-play-guest')[0].click();
-            $("#overlays").css("display","none");
         }
 
 
         else if(e.keyCode == 82)
-
         {
         }
+// BAT TAT NAME - SKIN
         //=============================== mo =====================================
-        else if(e.keyCode == 90  && e.ctrlKey){
+        else if(e.keyCode == 66  && e.ctrlKey){
 			$('#close_chatfull').click(function(){$(this).fadeOut("fast");});
             setSkins(true); //Skins: false
             $('#screenshot, #account_button, .controls, #klan, #level, #stats, .tosBox').remove();
@@ -673,12 +666,10 @@ setTimeout(createMiniMapText, 3000);
             $("#loginModal div.modal-content").replaceWith('<div class="modal-header">'+
                                                            '<button type="button" id="close_chatfull" class="close" data-dismiss="modal">&times;</button><h1 style="text-align:center;color:#FF0000;" class="modal-title">Hmmm..<br> Chat is full!</h1></div>');
         }
-
         //=============================== tat =====================================
         else if(e.keyCode == 88  && e.ctrlKey){
 			$('#close_chatfull').click(function(){$(this).fadeOut("fast");});
             setSkins(false); //Skins: false
-            $('#close_chatfull').click(function(){$(this).fadeOut("fast");});
             $('#screenshot, #account_button, .controls, #klan, #level, #stats, .tosBox').remove();
             $("#gamemode").replaceWith(
                 ' </div></div>');
@@ -690,11 +681,9 @@ setTimeout(createMiniMapText, 3000);
 
 
         }
-
-            //=============================== mo =====================================
         else if(e.keyCode == 67  && e.ctrlKey){
 			$('#close_chatfull').click(function(){$(this).fadeOut("fast");});
-            (true);//Acid:true
+            setNames(true);//Acid:true
             $('#screenshot, #account_button, .controls, #klan, #level, #stats, .tosBox').remove();
             $("#gamemode").replaceWith(
                 ' </div></div>');
@@ -705,10 +694,10 @@ setTimeout(createMiniMapText, 3000);
             $("#loginModal div.modal-content").replaceWith('<div class="modal-header">'+
                                                            '<button type="button" id="close_chatfull" class="close" data-dismiss="modal">&times;</button><h1 style="text-align:center;color:#FF0000;" class="modal-title">Hmmm..<br> Chat is full!</h1></div>');
         }
-                    //=============================== TatAcide =====================================
+
 else if(e.keyCode == 86  && e.ctrlKey){
 			$('#close_chatfull').click(function(){$(this).fadeOut("fast");});
-            (false);//Acid: false
+             setNames(false);//Acid: false
             $('#screenshot, #account_button, .controls, #klan, #level, #stats, .tosBox').remove();
             $("#gamemode").replaceWith(
                 ' </div></div>');
@@ -719,12 +708,10 @@ else if(e.keyCode == 86  && e.ctrlKey){
             $("#loginModal div.modal-content").replaceWith('<div class="modal-header">'+
                                                            '<button type="button" id="close_chatfull" class="close" data-dismiss="modal">&times;</button><h1 style="text-align:center;color:#FF0000;" class="modal-title">Hmmm..<br> Chat is full!</h1></div>');
         }
-                    //=============================== tat =====================================
 
     })
                 })
 ();
-
 var script = document.createElement('script');
 (document.body || document.head || document.documentElement).appendChild(script);
 
