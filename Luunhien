@@ -621,6 +621,37 @@ function createMiniMapText() {
 setTimeout(createMiniMapText, 3000);
 
 })();
+(function () {
+    'use strict';
+
+    function removeSpamUI() {
+
+        // icon email
+        const email = document.querySelector('img[src*="mail"]');
+        if (email) email.parentElement.remove();
+
+        // nút nhận ngay (bao lì xì)
+        const giftBtn = [...document.querySelectorAll("img")]
+            .find(el => el.src.includes("lixi") || el.src.includes("gift"));
+
+        if (giftBtn) giftBtn.parentElement.remove();
+
+        // text "nhớ mở bao lì xì"
+        const tip = [...document.querySelectorAll("div,span")]
+            .find(el => el.innerText && el.innerText.includes("bao lì xì"));
+
+        if (tip) tip.remove();
+    }
+
+    removeSpamUI();
+
+    const observer = new MutationObserver(removeSpamUI);
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+
+})();
 (function(){
     $("body").dblclick(function(){
         if($("#doubleclick_d").is(":checked"))
